@@ -1,0 +1,1 @@
+-- This is a placeholder file until we add the assets to the project.

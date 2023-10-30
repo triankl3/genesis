@@ -1,0 +1,1 @@
+return function() print("Hello world from Genesis!") end

@@ -1,0 +1,57 @@
+{
+  "name": "genesisdemo",
+  "tree": {
+    "$className": "DataModel",
+
+    "ReplicatedStorage": {
+      "Shared": {
+        "$path": "demo/shared"
+      },
+      "Assets": {
+        "$path": "demo/assets"
+      }
+    },
+
+    "ServerScriptService": {
+      "Server": {
+        "$path": "demo/server"
+      },
+
+      "Genesis": {
+        "$path": "genesis/"
+      }
+    },
+
+    "StarterPlayer": {
+      "StarterPlayerScripts": {
+        "Client": {
+          "$path": "demo/client"
+        }
+      }
+    },
+
+    "Workspace": {
+      "$properties": {
+        "FilteringEnabled": true,
+        "FallenPartsDestroyHeight": -4096
+      },
+
+      "Terrain": {
+				"$className": "Terrain",
+				"$properties": {
+					"Decoration": true
+				}
+			}
+    },
+    "Lighting": {
+      "$properties": {
+        "Technology": "Future"
+      }
+    },
+    "SoundService": {
+      "$properties": {
+        "RespectFilteringEnabled": true
+      }
+    }
+  }
+}

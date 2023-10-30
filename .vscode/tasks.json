@@ -1,0 +1,37 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Open demo",
+            "type": "shell",
+            "command": "start builds/demo.rbxl",
+            "problemMatcher": []
+        },
+        {
+            "label": "Serve demo",
+            "type": "shell",
+            "command": "rojo serve demo.project.json",
+            "problemMatcher": []
+        },
+        {
+            "label": "Build demo",
+            "type": "shell",
+            "command": "rojo build demo.project.json -o builds/demo.rbxl",
+            "problemMatcher": []
+        },
+        {
+            "label": "Build library",
+            "type": "shell",
+            "command": "rojo build genesis.project.json -o builds/genesis.rbxm",
+            "problemMatcher": []
+        },
+        {
+            "label": "Open documentation",
+            "type": "shell",
+            "command": "moonwave dev",
+            "problemMatcher": []
+        }
+    ]
+}
