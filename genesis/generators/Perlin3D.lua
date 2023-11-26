@@ -62,7 +62,9 @@ function Perlin3D.new(mapConfig, assetContainer, mapContainer)
     local self = setmetatable({}, Perlin3D)
 
     local debugStats = {
-        startTick = tick()
+        time = {
+            start = tick()
+        }
     }
 
     -- Store references to the map config and map container
@@ -79,7 +81,14 @@ function Perlin3D.new(mapConfig, assetContainer, mapContainer)
     self._spikeSeed = rng:NextInteger(0, 10e6)
     self._objectSeed = rng:NextInteger(0, 10e6)
 
-    debugStats["prepareTick"] = tick()
+    -- Apply material colors from config
+    local materialConfig = mapConfig.generatorConfig.material
+    TERRAIN:SetMaterialColor(materialConfig.primaryMaterial, materialConfig.primaryMaterialColor)
+    TERRAIN:SetMaterialColor(materialConfig.alternativeMaterial, materialConfig.alternativeMaterialColor)
+    TERRAIN:SetMaterialColor(materialConfig.noiseMaterial, materialConfig.noiseMaterialColor)
+    TERRAIN:SetMaterialColor(materialConfig.objectMaterial, materialConfig.objectMaterialColor)
+
+    debugStats["time"]["prepare"] = tick()
 
     -- Perform generation
     local objectProbes, spikeProbes = self:_generateTerrain()
@@ -93,19 +102,19 @@ function Perlin3D.new(mapConfig, assetContainer, mapContainer)
         if rayResult.Instance == TERRAIN then break end
         RunService.Heartbeat:Wait()
     end
-    debugStats["terrainTick"] = tick()
+    debugStats["time"]["terrain"] = tick()
 
     self:_generateSpikes(spikeProbes)
-    debugStats["spikesTick"] = tick()
+    debugStats["time"]["spikes"] = tick()
 
     local objectPoints = self:_prepareObjectPoints(objectProbes)
-    debugStats["objectPointsTick"] = tick()
+    debugStats["time"]["objectPoints"] = tick()
 
     local objectPrefabs = self:_prepareObjectPrefabs(assetContainer)
-    debugStats["objectPrefabsTick"] = tick()
+    debugStats["time"]["objectPrefabs"] = tick()
 
     self:_generateObjects(objectPoints, objectPrefabs)
-    debugStats["objectGenerationTick"] = tick()
+    debugStats["time"]["objectGeneration"] = tick()
 
     return self, debugStats
 end
@@ -121,7 +130,7 @@ function Perlin3D:_generateTerrain()
 
     local terrainConfig = self._mapConfig.generatorConfig.terrain
     local materialConfig = self._mapConfig.generatorConfig.material
-    local objectConfig = self._mapConfig.generatorConfig.object
+    local spikesConfig = self._mapConfig.generatorConfig.spikes
 
     local mapSizeStuds = self._mapConfig.size
     local mapSizeBlocksHalf = (mapSizeStuds / BLOCK_SIZE) / 2
@@ -161,8 +170,8 @@ function Perlin3D:_generateTerrain()
                     writeVoxels(studsPosition, finalMaterial)
                 else -- AIR
                     -- Determine if a spike could be generated here
-                    if terrainConfig.generateSpikes then
-                        if spikeRng:NextInteger(1, terrainConfig.spikeChance) == 1 then
+                    if spikesConfig then
+                        if spikeRng:NextInteger(1, spikesConfig.chance) == 1 then
                             table.insert(spikeProbes, studsPosition)
                         end
                     end
@@ -207,7 +216,7 @@ function Perlin3D:_generateTerrain()
                 end
 
                 -- Only write a certain percentage of probes to improve performance / reduce density of object calculations
-                if objectRng:NextInteger(1, objectConfig.probeChance) == 1 then
+                if objectRng:NextInteger(1, terrainConfig.objectProbeChance) == 1 then
                     if xChange or yChange or zChange then
                         table.insert(objectProbes, {
                             position = studsPosition,
@@ -227,7 +236,7 @@ end
 
 function Perlin3D:_generateSpikes(spikeProbes)
     local spikesRng = Random.new(self._spikeSeed)
-    local terrainConfig = self._mapConfig.generatorConfig.terrain
+    local spikesConfig = self._mapConfig.generatorConfig.spikes
     local materialConfig = self._mapConfig.generatorConfig.material
 
     for _, spikeProbe in ipairs(spikeProbes) do
@@ -237,25 +246,25 @@ function Perlin3D:_generateSpikes(spikeProbes)
         if not startRayResult then continue end
 
         -- Calculate if there is enough space to generate the spike
-        local endRayResult = workspace:Raycast(startRayResult.Position, startRayResult.Normal * (terrainConfig.spikeLengthMax + terrainConfig.spikeMinGap), SNAP_RAY_PARAMS)
+        local endRayResult = workspace:Raycast(startRayResult.Position, startRayResult.Normal * (spikesConfig.lengthMax + spikesConfig.minGap), SNAP_RAY_PARAMS)
         if not endRayResult then -- Create a faux result in case we hit nothing
             endRayResult = {
-                Distance = terrainConfig.spikeLengthMax + terrainConfig.spikeMinGap,
-                Position = startRayResult.Position + (startRayResult.Normal * (terrainConfig.spikeLengthMax + terrainConfig.spikeMinGap))
+                Distance = spikesConfig.lengthMax + spikesConfig.minGap,
+                Position = startRayResult.Position + (startRayResult.Normal * (spikesConfig.lengthMax + spikesConfig.minGap))
             }
         end
 
         -- Make sure we have enough space to create a spike here
-        if endRayResult.Distance < terrainConfig.spikeLengthMin + terrainConfig.spikeMinGap then continue end
+        if endRayResult.Distance < spikesConfig.lengthMin + spikesConfig.minGap then continue end
 
         -- Randomize the spike length based on how much space is available
-        local spikeLength = spikesRng:NextInteger(terrainConfig.spikeLengthMin, endRayResult.Distance - terrainConfig.spikeMinGap)
+        local spikeLength = spikesRng:NextInteger(spikesConfig.lengthMin, endRayResult.Distance - spikesConfig.minGap)
 
         -- Loop over points in the spike and create it using fill ball
         local currentDist = 0
         local currentCFrame = CFrame.new(startRayResult.Position, endRayResult.Position)
         while currentDist < spikeLength do
-            local radius = math.clamp(terrainConfig.spikeWidth * (1 - (currentDist / spikeLength)), 2, terrainConfig.spikeWidth)
+            local radius = math.clamp(spikesConfig.width * (1 - (currentDist / spikeLength)), 2, spikesConfig.width)
             TERRAIN:FillBall(
                 currentCFrame.Position,
                 radius,
@@ -331,12 +340,16 @@ end
 
 function Perlin3D:_prepareObjectPrefabs(assetContainer)
     local objectPrefabs = {}
+    local prefabConfig = self._mapConfig.generatorConfig.prefabs
+    if not prefabConfig then return end
 
     return objectPrefabs
 end
 
 function Perlin3D:_generateObjects(objectPoints, objectPrefabs)
-
+    if not objectPoints then return end
+    local prefabConfig = self._mapConfig.generatorConfig.prefabs
+    if not prefabConfig then return end
 end
 
 return Perlin3D
