@@ -35,6 +35,7 @@ local function getSphereFalloff(position, falloffRadius, mapRadius)
     return 1 - getSmoothCurve(falloff)
 end
 
+-- Simply writes a block of voxels to the terrain, simplifyting the process to just a position and material
 local function writeVoxels(position, material)
     TERRAIN:WriteVoxels(
         Region3.new(position - Vector3.new(2, 2, 2), position + Vector3.new(2, 2, 2)):ExpandToGrid(BLOCK_SIZE),
@@ -102,6 +103,9 @@ function Perlin3D.new(mapConfig, assetContainer, mapContainer)
 
     local objectPrefabs = self:_prepareObjectPrefabs(assetContainer)
     debugStats["objectPrefabsTick"] = tick()
+
+    self:_generateObjects(objectPoints, objectPrefabs)
+    debugStats["objectGenerationTick"] = tick()
 
     return self, debugStats
 end
@@ -327,6 +331,12 @@ end
 
 function Perlin3D:_prepareObjectPrefabs(assetContainer)
     local objectPrefabs = {}
+
+    return objectPrefabs
+end
+
+function Perlin3D:_generateObjects(objectPoints, objectPrefabs)
+
 end
 
 return Perlin3D
