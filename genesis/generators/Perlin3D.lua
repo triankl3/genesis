@@ -61,11 +61,8 @@ end
 function Perlin3D.new(mapConfig, assetContainer, mapContainer)
     local self = setmetatable({}, Perlin3D)
 
-    local debugStats = {
-        time = {
-            start = tick()
-        }
-    }
+    local debugStats = { total = {}, time = {} }
+    debugStats["time"]["start"] = tick()
 
     -- Store references to the map config and map container
     self._mapConfig = mapConfig
@@ -103,18 +100,32 @@ function Perlin3D.new(mapConfig, assetContainer, mapContainer)
         RunService.Heartbeat:Wait()
     end
     debugStats["time"]["terrain"] = tick()
+    if objectProbes then
+        debugStats["total"]["objectProbes"] = #objectProbes
+    end
+    if spikeProbes then
+        debugStats["total"]["spikeProbes"] = #spikeProbes
+    end
 
-    self:_generateSpikes(spikeProbes)
+    local totalSpikes = self:_generateSpikes(spikeProbes)
     debugStats["time"]["spikes"] = tick()
+    debugStats["total"]["spikes"] = totalSpikes
 
     local objectPoints = self:_prepareObjectPoints(objectProbes)
     debugStats["time"]["objectPoints"] = tick()
+    if objectPoints then
+        debugStats["total"]["objectPoints"] = #objectPoints
+    end
 
     local objectPrefabs = self:_prepareObjectPrefabs(assetContainer)
     debugStats["time"]["objectPrefabs"] = tick()
+    if objectPrefabs then
+        debugStats["total"]["objectPrefabs"] = #objectPrefabs
+    end
 
-    self:_generateObjects(objectPoints, objectPrefabs)
+    local totalObjects = self:_generateObjects(objectPoints, objectPrefabs)
     debugStats["time"]["objectGeneration"] = tick()
+    debugStats["total"]["objects"] = totalObjects
 
     return self, debugStats
 end
@@ -239,6 +250,7 @@ function Perlin3D:_generateSpikes(spikeProbes)
     local spikesConfig = self._mapConfig.generatorConfig.spikes
     local materialConfig = self._mapConfig.generatorConfig.material
 
+    local totalSpikes = 0
     for _, spikeProbe in ipairs(spikeProbes) do
         -- Get random direction and try to hit terrain with it
         local direction = randomUnitVector(spikesRng:NextInteger(0, 10e6))
@@ -274,7 +286,11 @@ function Perlin3D:_generateSpikes(spikeProbes)
             currentDist += 2
             currentCFrame *= CFrame.new(0, 0, -2)
         end
+
+        totalSpikes += 1
     end
+
+    return totalSpikes
 end
 
 function Perlin3D:_prepareObjectPoints(objectProbes)

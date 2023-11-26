@@ -7,7 +7,7 @@ local assetContainer = Instance.new("Folder")
 assetContainer.Name = "GenesisAssets"
 assetContainer.Parent = workspace
 
-Genesis:CreateMap({
+local debugStats = Genesis:CreateMap({
     generatorConfig = {
         generator = "Perlin3D",
         terrain = {
@@ -50,3 +50,5 @@ Genesis:CreateMap({
     size = 256,
     seed = 222,
 }, assetContainer)
+
+print(debugStats)

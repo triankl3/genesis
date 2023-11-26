@@ -190,6 +190,14 @@ export type DebugStats = {
         objectPoints : number,
         objectPrefabs : number,
         objectGeneration : number,
+    },
+    total : {
+        objectProbes : number,
+        spikeProbes : number,
+        spikes : number,
+        objectPoints : number,
+        objectPrefabs : number,
+        objects : number,
     }
 }
 
@@ -206,6 +214,7 @@ export type DebugStats = {
 local Genesis = {
     _version = "0.0.1",
     _currentMap = nil,
+    _creatingMap = false,
     _mapContainer = nil,
     _mountedMaterialVariants = {},
     UseFlatMaterials = true
@@ -230,6 +239,8 @@ local Genesis = {
 function Genesis:CreateMap(mapConfig : MapConfig, assetContainer : Folder)
     assert(mapConfig, "MapConfig is required to create a map")
     assert(assetContainer, "AssetContainer is required to create a map")
+    if self._creatingMap then warn("Genesis:CreateMap() cannot be called while another map is being created") return end
+    self._creatingMap = true
 
     if self._currentMap then self:DestroyMap() end
 
@@ -247,6 +258,8 @@ function Genesis:CreateMap(mapConfig : MapConfig, assetContainer : Folder)
 
     local currentMap, debugStats : DebugStats = GENERATORS[mapConfig.generatorConfig.generator].new(mapConfig, assetContainer, self._mapContainer)
     self._currentMap = currentMap
+
+    self._creatingMap = false
 
     return debugStats
 end
