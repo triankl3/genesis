@@ -1,0 +1,17 @@
+title = "Genesis"
+gitRepoUrl = "https://github.com/triankl3/genesis" # From Git
+
+[docusaurus]
+onBrokenLinks = "throw"
+onBrokenMarkdownLinks = "warn"
+plugins = ["docusaurus-plugin-relative-paths"]
+
+organizationName = "triankl3"
+projectName = "genesis"
+#url = "/"
+#baseUrl = "/"
+tagline = "Procedural terrain generation system built for Roblox experiences"
+
+[footer]
+style = "dark"
+copyright = "MIT licensed | Copyright © Nikola Pešević(triankl3.com)"

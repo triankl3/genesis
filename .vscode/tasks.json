@@ -30,7 +30,7 @@
         {
             "label": "Open documentation",
             "type": "shell",
-            "command": "moonwave dev",
+            "command": "moonwave dev --code genesis",
             "problemMatcher": []
         }
     ]

@@ -16,7 +16,6 @@
       "Server": {
         "$path": "demo/server"
       },
-
       "Genesis": {
         "$path": "genesis/"
       }
