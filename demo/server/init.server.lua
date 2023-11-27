@@ -1,11 +1,9 @@
 --!strict
 
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local ServerScriptService = game:GetService("ServerScriptService")
 local Genesis = require(ServerScriptService:WaitForChild("Genesis"))
-
-local assetContainer = Instance.new("Folder")
-assetContainer.Name = "GenesisAssets"
-assetContainer.Parent = workspace
+local ASSET_CONTAINER = ReplicatedStorage:WaitForChild("Assets")
 
 local debugStats = Genesis:CreateMap({
     generatorConfig = {
@@ -49,6 +47,6 @@ local debugStats = Genesis:CreateMap({
     },
     size = 256,
     seed = 222,
-}, assetContainer)
+}, ASSET_CONTAINER)
 
 print(debugStats)
