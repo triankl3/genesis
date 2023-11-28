@@ -1,3 +1,4 @@
+local ProximityPromptService = game:GetService("ProximityPromptService")
 local RunService = game:GetService("RunService")
 local Perlin3D = {}
 Perlin3D.__index = Perlin3D
@@ -10,6 +11,35 @@ local SNAP_RAY_PARAMS = RaycastParams.new()
 SNAP_RAY_PARAMS.IgnoreWater = true
 SNAP_RAY_PARAMS.FilterType = Enum.RaycastFilterType.Include
 SNAP_RAY_PARAMS.FilterDescendantsInstances = {TERRAIN}
+
+local PROXIMITY_OVERLAP_PARAMS = OverlapParams.new()
+PROXIMITY_OVERLAP_PARAMS.FilterType = Enum.RaycastFilterType.Include
+PROXIMITY_OVERLAP_PARAMS.MaxParts = 20
+
+-- Perform a deep copy of a table(supports nested tables using a recursive function)
+function tableDeepCopy(original)
+    local copy = {}
+
+	for k, v in pairs(original) do
+		if type(v) == "table" then
+			v = tableDeepCopy(v)
+		end
+		copy[k] = v
+	end
+
+	return copy
+end
+
+-- Returns the average of all values in a table
+function tableAverage(numberArrayTable)
+    local sum = 0
+
+    for _, value in ipairs(numberArrayTable) do
+        sum += value
+    end
+
+    return sum / #numberArrayTable --return average
+end
 
 -- Returns a float value from 0-1 that represents the density at the given 3D position, calculated using Perlin noise
 local function getPerlinDensity(x, y, z, seed, frequency, verticalScale)
@@ -56,6 +86,66 @@ local function randomUnitVector(seed)
 		sqrt * math.sin(angle),
 		math.sqrt(-2 * math.log(rng:NextNumber())) * math.cos(2 * math.pi * rng:NextNumber())
 	).Unit
+end
+
+-- Change a model's scale by multiplying it
+function scaleModel(model, scale)
+    if not model.PrimaryPart then error("The specified model has no PrimaryPart!") end
+    local primaryPartCFrame = model.PrimaryPart.CFrame
+
+    for _, foundInstance in ipairs(model:GetDescendants()) do
+        if foundInstance:IsA("BasePart") or foundInstance:IsA("MeshPart") then
+            foundInstance.Size = foundInstance.Size * scale
+
+            local distance = (foundInstance.Position - primaryPartCFrame.p)
+			local rotation = (foundInstance.CFrame - foundInstance.Position)
+			foundInstance.CFrame = (CFrame.new(primaryPartCFrame.p + distance * scale) * rotation)
+        end
+    end
+end
+
+local function findNearbyObjects(x, y, z, radius, mapContainer, bannedList)
+    local foundParts = workspace:GetPartBoundsInRadius(
+        Vector3.new(x, y, z),
+        radius,
+        PROXIMITY_OVERLAP_PARAMS
+    )
+
+    local foundOverlap = false
+    for _, foundPart in ipairs(foundParts) do
+        if not foundPart.Parent then continue end
+        if not foundPart.Parent:IsA("Model") then continue end
+        if not foundPart:IsDescendantOf(mapContainer) then continue end
+        if bannedList then
+            if not bannedList[foundPart.Name] then continue end
+        end
+
+        foundOverlap = true
+        break
+    end
+
+    return foundOverlap
+end
+
+-- Returns all nearby points stored in object points 3d table
+local function getNearbyPoints(position, radius, objectPoints)
+    local foundPointPositions = {}
+
+    for x = math.floor(position.X - (radius / 2)), math.ceil(position.X + (radius / 2)) do
+        for y = math.floor(position.Y - (radius / 2)), math.ceil(position.Y + (radius / 2)) do
+            for z = math.floor(position.Z - (radius / 2)), math.ceil(position.Z + (radius / 2)) do
+                if not objectPoints[x] then continue end
+                if not objectPoints[x][y] then continue end
+                if not objectPoints[x][y][z] then continue end
+
+                if (Vector3.new(x, y, z) - position).Magnitude < radius then
+                    foundPointPositions[#foundPointPositions+1] = Vector3.new(x, y, z)
+                end
+            end
+        end
+    end
+
+    return foundPointPositions
 end
 
 function Perlin3D.new(mapConfig, assetContainer, mapContainer)
@@ -111,17 +201,13 @@ function Perlin3D.new(mapConfig, assetContainer, mapContainer)
     debugStats["time"]["spikes"] = tick()
     debugStats["total"]["spikes"] = totalSpikes
 
-    local objectPoints = self:_prepareObjectPoints(objectProbes)
+    local objectPoints, totalObjectPoints = self:_prepareObjectPoints(objectProbes)
     debugStats["time"]["objectPoints"] = tick()
-    if objectPoints then
-        debugStats["total"]["objectPoints"] = #objectPoints
-    end
+    debugStats["total"]["objectPoints"] = totalObjectPoints
 
-    local objectPrefabs = self:_prepareObjectPrefabs(assetContainer)
+    local objectPrefabs, totalObjectPrefabs = self:_prepareObjectPrefabs(assetContainer)
     debugStats["time"]["objectPrefabs"] = tick()
-    if objectPrefabs then
-        debugStats["total"]["objectPrefabs"] = #objectPrefabs
-    end
+    debugStats["total"]["objectPrefabs"] = totalObjectPrefabs
 
     local totalObjects = self:_generateObjects(objectPoints, objectPrefabs)
     debugStats["time"]["objectGeneration"] = tick()
@@ -163,7 +249,8 @@ function Perlin3D:_generateTerrain()
                 local outlineDensity = getPerlinDensity(x, y, z, self._outlineDensitySeed, terrainConfig.outlineFrequency, 1)
                 if outlineDensity < terrainConfig.outlineMinDensity then
                     terrainDensity = getPerlinDensity(x, y, z, self._densitySeed, terrainConfig.frequency, terrainConfig.verticalScale)
-                    terrainDensity *= getSphereFalloff(studsPosition, mapSizeStuds * terrainConfig.falloffStart, mapSizeStuds)
+
+                    terrainDensity *= getSphereFalloff(studsPosition, (mapSizeStuds / 2) * terrainConfig.falloffStart, mapSizeStuds)
                 end
 
                 -- If the terrain density is above the minimum, generate terrain
@@ -296,6 +383,7 @@ end
 function Perlin3D:_prepareObjectPoints(objectProbes)
     local materialConfig = self._mapConfig.generatorConfig.material
     local objectPoints = {}
+    local totalObjectPoints = 0
 
     local function determineObjectPoint(position, direction, categoryName)
         -- Raycast to snap to terrain
@@ -329,43 +417,302 @@ function Perlin3D:_prepareObjectPoints(objectProbes)
         if not objectPoints[finalX] then objectPoints[finalX] = {} end
         if not objectPoints[finalX][finalY] then objectPoints[finalX][finalY] = {} end
         objectPoints[finalX][finalY][finalZ] = {
-            ["material"] = materialName,
+            ["material"] = materialName .. "Material",
             ["normal"] = rayResult.Normal,
             ["direction"] = direction,
             ["category"] = categoryName
         }
+        totalObjectPoints += 1
     end
 
     for _, objectProbe in ipairs(objectProbes) do
         if objectProbe["xChange"] then
-            determineObjectPoint(objectProbe["position"], Vector3.new(1, 0, 0), "side")
-            determineObjectPoint(objectProbe["position"], Vector3.new(-1, 0, 0), "side")
+            determineObjectPoint(objectProbe["position"], Vector3.new(1, 0, 0), "wall")
+            determineObjectPoint(objectProbe["position"], Vector3.new(-1, 0, 0), "wall")
         end
         if objectProbe["yChange"] then
             determineObjectPoint(objectProbe["position"], Vector3.new(0, 1, 0), "ceiling")
             determineObjectPoint(objectProbe["position"], Vector3.new(0, -1, 0), "floor")
         end
         if objectProbe["zChange"] then
-            determineObjectPoint(objectProbe["position"], Vector3.new(0, 0, 1), "side")
-            determineObjectPoint(objectProbe["position"], Vector3.new(0, 0, -1), "side")
+            determineObjectPoint(objectProbe["position"], Vector3.new(0, 0, 1), "wall")
+            determineObjectPoint(objectProbe["position"], Vector3.new(0, 0, -1), "wall")
         end
     end
 
-    return objectPoints
+    return objectPoints, totalObjectPoints
 end
 
 function Perlin3D:_prepareObjectPrefabs(assetContainer)
     local objectPrefabs = {}
-    local prefabConfig = self._mapConfig.generatorConfig.prefabs
-    if not prefabConfig then return end
+    local totalObjectPrefabs = 0
+    local prefabsConfig = self._mapConfig.generatorConfig.prefabs
+    if not prefabsConfig then return end
 
-    return objectPrefabs
+    for prefabName, prefabConfig in pairs(prefabsConfig) do
+        -- Detect if this is a cloned prefab config and add that to the stack of configs that need to be applied
+        if prefabConfig["clone"] then
+            prefabConfig = tableDeepCopy(prefabConfig) -- Copy to prevent overriden values
+            local prefabCloneNameStack = {prefabName}
+            local function sortPrefabConfigs()
+                local cloneValue = prefabsConfig[prefabCloneNameStack[#prefabCloneNameStack]]["clone"]
+
+                -- If there are no more clones, we can end the recursive function
+                if not cloneValue then return end
+
+                -- Otherwise keep adding the configs to the stack
+                prefabCloneNameStack[#prefabCloneNameStack + 1] = cloneValue
+
+                sortPrefabConfigs() -- Go another level deeper recursively
+            end
+            sortPrefabConfigs()
+
+            -- Apply all the sorted prefab configs in reverse order, so each clone takes precedence over the previous
+            for i = #prefabCloneNameStack, 1, -1 do
+                for k, v in pairs(prefabsConfig[prefabCloneNameStack[i]]) do
+                    prefabConfig[k] = v
+                end
+            end
+        end
+
+        -- Clone prefab from asset and name it properly
+        local newPrefabObject = assetContainer:FindFirstChild(prefabConfig["asset"]):Clone()
+        newPrefabObject.Name = prefabName
+
+        -- Apply default roblox properties to any specified children
+        if prefabConfig["rbxProperties"] then
+            for childName, rbxPropertiesTable in pairs(prefabConfig["rbxProperties"]) do
+                for k, v in pairs(rbxPropertiesTable) do
+                    newPrefabObject:FindFirstChild(childName)[k] = v
+                end
+            end
+        end
+
+        -- Create sound if set
+        if prefabConfig["sound"] then
+            local newSound = Instance.new("Sound")
+            newSound.Looped = true
+
+            for k, v in pairs(prefabConfig["sound"]) do
+                newSound[k] = v
+            end
+
+            newSound.Parent = newPrefabObject.PrimaryPart
+            newSound:Play()
+        end
+
+        -- Create light if set
+        if prefabConfig["light"] then
+            local newLight = Instance.new("PointLight")
+
+            for k, v in pairs(prefabConfig["light"]) do
+                newLight[k] = v
+            end
+
+            newLight.Parent = newPrefabObject.PrimaryPart
+        end
+
+        -- Create decal(s) if set
+        if prefabConfig["decal"] then
+            local newDecalTemplate = Instance.new("Decal")
+            for k, v in pairs(prefabConfig["decal"]) do
+                if k == "faces" then continue end
+                newDecalTemplate[k] = v
+            end
+
+            for _, faceEnum in ipairs(prefabConfig["decal"]["faces"]) do
+                local newDecal = newDecalTemplate:Clone()
+                newDecal.Face = faceEnum
+                newDecal.Parent = newPrefabObject.PrimaryPart
+            end
+        end
+
+        -- Create texture if set
+        if prefabConfig["texture"] then --same as above for decal just do it for textures
+            local newTextureTemplate = Instance.new("Texture")
+            for k, v in pairs(prefabConfig["texture"]) do
+                if k == "faces" then continue end
+                if k == "otherChildren" then continue end
+                newTextureTemplate[k] = v
+            end
+
+            local texturizedChildren = {newPrefabObject.PrimaryPart}
+            if prefabConfig["texture"]["otherChildren"] then
+                for _, childName in ipairs(prefabConfig["texture"]["otherChildren"]) do
+                    table.insert(texturizedChildren, newPrefabObject:FindFirstChild(childName))
+                end
+            end
+
+            for _, texturizedChild in ipairs(texturizedChildren) do
+                for _, faceEnum in ipairs(prefabConfig["texture"]["faces"]) do
+                    local newTexture = newTextureTemplate:Clone()
+                    newTexture.Face = faceEnum
+                    newTexture.Parent = texturizedChild
+                end
+            end
+        end
+
+        -- The rest of the properties are applied per object placed, save them alongside the prefab
+        objectPrefabs[prefabName] = {
+            prefabObject = newPrefabObject,
+            proximity = prefabConfig["proximity"],
+            scale = prefabConfig["scale"],
+            randomRotation = prefabConfig["randomRotation"],
+            bury = prefabConfig["bury"],
+            useNormal = prefabConfig["useNormal"],
+            stretch = prefabConfig["stretch"]
+        }
+        totalObjectPrefabs += 1
+    end
+
+    return objectPrefabs, totalObjectPrefabs
 end
 
 function Perlin3D:_generateObjects(objectPoints, objectPrefabs)
     if not objectPoints then return end
-    local prefabConfig = self._mapConfig.generatorConfig.prefabs
-    if not prefabConfig then return end
+    if not objectPrefabs then return end
+    local objectsConfig = self._mapConfig.generatorConfig.objects
+    if not objectsConfig then return end
+
+    -- Loop over all groups and create ratio tables
+    local ratioTables = {}
+    for materialName, materialTable in pairs(objectsConfig) do
+        ratioTables[materialName] = {}
+        for categoryName, categoryTable in pairs(materialTable) do
+            ratioTables[materialName][categoryName] = {}
+            for k, v in pairs(categoryTable) do
+                for _ = 1, v do
+                    table.insert(ratioTables[materialName][categoryName], k)
+                end
+            end
+        end
+    end
+
+    local objectRng = Random.new(self._objectSeed)
+    local scaleRng = objectRng:Clone()
+    local rotationRng = objectRng:Clone()
+    local totalObjects = 0
+    -- Loop over every object point and place objects
+    for x, yTable in pairs(objectPoints) do
+        for y, zTable in pairs(yTable) do
+            for z, objectPoint in pairs(zTable) do
+                if objectPoint == nil then continue end -- This point has already been discarded
+
+                -- Recursively look for an object to place incase some are banned at this point
+                local newObjectName = nil
+                local currentAttempts = 0
+                while currentAttempts < 10 do
+                    currentAttempts += 1
+
+                    local randomObjectName = ratioTables[objectPoint["material"]][objectPoint["category"]][objectRng:NextInteger(1, 100)]
+                    if objectPoint["bannedObjects"] then
+                        if objectPoint["bannedObjects"][randomObjectName] then continue end
+                    end
+
+                    newObjectName = randomObjectName
+                    break
+                end
+                if not newObjectName then continue end -- No object could be placed here or we reached maximum attempts to find one
+
+                -- Get prefab table and instance new object
+                local newObjectPrefabTable = objectPrefabs[newObjectName]
+                local newObject = newObjectPrefabTable["prefabObject"]:Clone()
+
+                -- Get model size for base proximity check
+                local size = newObject.PrimaryPart.Size
+                local averageBoundingSize = tableAverage({size.X, size.Y, size.Z})
+
+                -- Increase radius for check if specified in prefab proximity properties
+                if newObjectPrefabTable["proximity"] then
+                    if newObjectPrefabTable["proximity"]["extraRadius"] then
+                        averageBoundingSize += newObjectPrefabTable["proximity"]["extraRadius"]
+                    end
+                end
+
+                -- Look for already existing nearby objects and skip these points if overlaps are found
+                local foundOverlap = findNearbyObjects(
+                    x, y, z,
+                    averageBoundingSize,
+                    self._mapContainer
+                )
+                if foundOverlap then continue end
+                if newObjectPrefabTable["proximity"] then
+                    if newObjectPrefabTable["proximity"]["banned"] then
+                        local foundBannedOverlap = findNearbyObjects(
+                            x, y, z,
+                            newObjectPrefabTable["proximity"]["banned"]["radius"],
+                            self._mapContainer,
+                            newObjectPrefabTable["proximity"]["banned"]["list"]
+                        )
+                        if foundBannedOverlap then continue end
+                    end
+                end
+
+                -- Apply scaling if specified
+                if newObjectPrefabTable["scale"] then
+                    scaleModel(newObject, scaleRng:NextNumber(newObjectPrefabTable["scale"].Min, newObjectPrefabTable["scale"].Max))
+                end
+
+                -- Apply stretch if specified
+                if newObjectPrefabTable["stretch"] then
+                    local determinedScale = scaleRng:NextNumber(newObjectPrefabTable["stretch"].Min, newObjectPrefabTable["stretch"].Max)
+                    for _, child in ipairs(newObject:GetChildren()) do
+                        child.Size *= Vector3.new(1, determinedScale, 1)
+                    end
+                end
+
+                -- Calculate CFrame
+                local finalPosition = Vector3.new(x, y, z) + Vector3.new(0, newObject.PrimaryPart.Size.Y / 2, 0)
+                local finalCFrame = CFrame.new(finalPosition, finalPosition + objectPoint["direction"])
+
+                -- Use normal instead if specified
+                if newObjectPrefabTable["useNormal"] then
+                    finalCFrame = CFrame.new(finalPosition, finalPosition - objectPoint["normal"])
+                end
+
+                -- Rotate mdoel so the bottom is actually facing the direction
+                finalCFrame *= CFrame.Angles(math.rad(90), 0, 0)
+
+                -- Apply random rotation if specified
+                if newObjectPrefabTable["randomRot"] then
+                    finalCFrame *= CFrame.Angles(0, math.rad(rotationRng:NextInteger(0, 360)), 0)
+                end
+
+                -- Bury object if specified
+                if newObjectPrefabTable["bury"] then
+                    finalCFrame -= Vector3.new(0, newObject.PrimaryPart.Size.Y * newObjectPrefabTable["bury"], 0)
+                end
+
+                -- Set PrimaryPart CFrame and and parent to map contianer
+                newObject:SetPrimaryPartCFrame(finalCFrame)
+                newObject.Parent = self._mapContainer
+
+                -- Delete other nearby points due to proximity limits, this speeds up the process of placing objects
+                for _, objectPointPosition in ipairs(getNearbyPoints(Vector3.new(x, y, z), averageBoundingSize, objectPoints)) do
+                    objectPoints[objectPointPosition.X][objectPointPosition.Y][objectPointPosition.Z] = nil
+                end
+
+                -- Ban objects on other nearby points due to banned proximity limits
+                if newObjectPrefabTable["proximity"] then
+                    if newObjectPrefabTable["proximity"]["banned"]["radius"] and newObjectPrefabTable["proximity"]["banned"]["list"] then
+                        for _, objectPointPosition in ipairs(getNearbyPoints(Vector3.new(x, y, z), newObjectPrefabTable["proximity"]["banned"]["radius"], objectPoints)) do
+                            objectPoints[objectPointPosition.X][objectPointPosition.Y][objectPointPosition.Z]["bannedObjects"] = newObjectPrefabTable["proximity"]["banned"]["list"]
+                        end
+                    end
+                end
+
+                totalObjects += 1
+            end
+        end
+    end
+
+    -- Cleanup memory
+    objectPoints = nil
+    for _, objectPrefab in ipairs(objectPrefabs) do objectPrefab:Destroy() end
+    objectPrefabs = nil
+    ratioTables = nil
+
+    return totalObjects
 end
 
 return Perlin3D

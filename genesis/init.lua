@@ -75,6 +75,7 @@ export type MapConfig = {
     .material { primaryMaterial : Enum.Material, alternativeMaterial : Enum.Material, noiseMaterial : Enum.Material, objectMaterial : Enum.Material, primaryMaterialColor : Color3, alternativeMaterialColor : Color3, noiseMaterialColor : Color3, objectMaterialColor : Color3 }
     .spikes { chance : number, lengthMin : number, lengthMax : number, minGap : number, width : number } | nil
     .prefabs { [string] : PrefabConfig | nil } | nil
+    .objects { primaryMaterial : { ceiling : { [string] : number }, side : { [string] : number }, floor : { [string] : number } }, alternativeMaterial : { ceiling : { [string] : number }, side : { [string] : number }, floor : { [string] : number } }, objectMaterial : { ceiling : { [string] : number }, side : { [string] : number }, floor : { [string] : number } } } | nil
 ]=]
 export type Perlin3DConfig = {
     generator : "Perlin3D",
@@ -116,6 +117,41 @@ export type Perlin3DConfig = {
     } | nil,
     prefabs : {
         [string] : PrefabConfig | nil
+    } | nil,
+    objects : {
+        primaryMaterial : {
+            ceiling : {
+                [string] : number
+            },
+            side : {
+                [string] : number
+            },
+            floor : {
+                [string] : number
+            },
+        },
+        alternativeMaterial : {
+            ceiling : {
+                [string] : number
+            },
+            side : {
+                [string] : number
+            },
+            floor : {
+                [string] : number
+            },
+        },
+        objectMaterial : {
+            ceiling : {
+                [string] : number
+            },
+            side : {
+                [string] : number
+            },
+            floor : {
+                [string] : number
+            },
+        }
     } | nil
 }
 
@@ -123,7 +159,6 @@ export type Perlin3DConfig = {
     @interface PrefabConfig
     @within Genesis
 
-    .prefabName string
     .clone string | nil
     .asset string
     .rbxProperties { [string] : { [string] : any } | nil } | nil
@@ -138,7 +173,6 @@ export type Perlin3DConfig = {
     .texture { otherChildren : { string } | nil, faces : { Enum.NormalId }, [string] : any } | nil
 ]=]
 export type PrefabConfig = {
-    prefabName : string,
     clone : string | nil,
     asset : string,
 
@@ -151,12 +185,13 @@ export type PrefabConfig = {
     proximity : {
         extraRadius : number | nil,
         banned : {
-            bannedRadius : number,
-            bannedList : { string }
+            radius : number,
+            list : { string }
         } | nil,
     } | nil,
 
     scale : NumberRange,
+    stretch : NumberRange | nil,
     randomRotation : boolean | nil,
     bury : boolean | nil,
     useNormal : boolean | nil,
@@ -167,7 +202,6 @@ export type PrefabConfig = {
         faces : { Enum.NormalId },
         [string] : any
     } | nil,
-    stretch : NumberRange | nil,
     texture : {
         otherChildren : { string } | nil,
         faces : { Enum.NormalId },
@@ -180,6 +214,7 @@ export type PrefabConfig = {
     @within Genesis
 
     .time { start : number, prepare : number, terrain : number, spikes : number, objectPoints : number, objectPrefabs : number, objectGeneration : number }
+    .total { objectProbes : number, spikeProbes : number, spikes : number, objectPoints : number, objectPrefabs : number, objects : number }
 ]=]
 export type DebugStats = {
     time : {
