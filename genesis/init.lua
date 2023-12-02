@@ -218,13 +218,13 @@ export type PrefabConfig = {
 ]=]
 export type DebugStats = {
     time : {
-        start : number,
         prepare : number,
         terrain : number,
         spikes : number,
         objectPoints : number,
         objectPrefabs : number,
         objectGeneration : number,
+        total : number,
     },
     total : {
         objectProbes : number,
@@ -282,6 +282,7 @@ function Genesis:CreateMap(mapConfig : MapConfig, assetContainer : Folder)
     -- Prepare flat materials if enabled
     if self.UseFlatMaterials then
         for _, materialVariant in pairs(FLAT_MATERIALS_FOLDER:GetChildren()) do
+            materialVariant = materialVariant:Clone()
             materialVariant.Parent = MaterialService
             table.insert(self._mountedMaterialVariants, materialVariant)
         end

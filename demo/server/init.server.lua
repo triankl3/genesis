@@ -1,114 +1,65 @@
 --!strict
 
+local Lighting = game:GetService("Lighting")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local ServerScriptService = game:GetService("ServerScriptService")
 local Genesis = require(ServerScriptService:WaitForChild("Genesis"))
 local ASSET_CONTAINER = ReplicatedStorage:WaitForChild("Assets")
-local PREFABS_CONFIG = require(script:WaitForChild("prefabsConfig"))
+local STATIC_CONFIG = require(script:WaitForChild("staticConfig"))
 
-local debugStats = Genesis:CreateMap({
-    generatorConfig = {
-        generator = "Perlin3D",
-        terrain = {
-            minDensity = 0.4,
-            frequency = 10,
-            verticalScale = 0.5,
+local CreateMap = Instance.new("RemoteEvent")
+CreateMap.Name = "CreateMap"
+CreateMap.Parent = ReplicatedStorage
 
-            outlineMinDensity = 0.5,
-            outlineFrequency = 80,
+-- Create lighting effects and settings
+Lighting.Ambient = Color3.fromRGB(32, 32, 32)
+Lighting.OutdoorAmbient = Color3.fromRGB(0, 0, 0)
+Lighting.ColorShift_Top = Color3.fromRGB(0, 0, 0)
+Lighting.ColorShift_Bottom = Color3.fromRGB(0, 0, 0)
+Lighting.Brightness = 0
+Lighting.EnvironmentDiffuseScale = 0
+Lighting.EnvironmentSpecularScale = 0
+Lighting.GlobalShadows = false
+Lighting.GeographicLatitude = 0
+Lighting.ExposureCompensation = 0
+Lighting.ClockTime = 0
+local sky = Instance.new("Sky")
+sky.SkyboxBk = "rbxassetid://7658670519"
+sky.SkyboxDn = "rbxassetid://7658670519"
+sky.SkyboxFt = "rbxassetid://7658670519"
+sky.SkyboxLf = "rbxassetid://7658670519"
+sky.SkyboxRt = "rbxassetid://7658670519"
+sky.SkyboxUp = "rbxassetid://7658670519"
+sky.CelestialBodiesShown = false
+sky.StarCount = 0
+sky.MoonAngularSize = 0
+sky.SunAngularSize = 0
+sky.Parent = Lighting
+local bloom = Instance.new("BloomEffect")
+bloom.Intensity = 1
+bloom.Size = 26
+bloom.Threshold = 1.9
+bloom.Parent = Lighting
+local atmosphere = Instance.new("Atmosphere")
+atmosphere.Density = 0.4
+atmosphere.Offset = 0
+atmosphere.Color = Color3.fromRGB(0, 89, 191)
+atmosphere.Decay = Color3.fromRGB(255, 255, 255)
+atmosphere.Glare = 0
+atmosphere.Haze = 10
+atmosphere.Parent = Lighting
 
-            falloffStart = 0.25,
-
-            alternativeMaterialChance = 10,
-            noiseMaterialMinDensity = 0.8,
-            noiseMaterialFrequency = 10,
-            objectMaterialMinDensity = 0.6,
-            objectMaterialFrequency = 40,
-
-            objectProbeChance = 50,
+CreateMap.OnServerEvent:Connect(function(_, size, seed, terrainConfig, spikeConfig)
+    Genesis:CreateMap({
+        generatorConfig = {
+            generator = "Perlin3D",
+            terrain = terrainConfig,
+            material = STATIC_CONFIG.material,
+            spikes = spikeConfig,
+            prefabs = STATIC_CONFIG.prefabs,
+            objects = STATIC_CONFIG.objects
         },
-        material = {
-            primaryMaterial = Enum.Material.Rock,
-            alternativeMaterial = Enum.Material.Slate,
-            noiseMaterial = Enum.Material.Ice,
-            objectMaterial = Enum.Material.Grass,
-
-            primaryMaterialColor = Color3.fromRGB(50, 77, 85),
-            alternativeMaterialColor = Color3.fromRGB(98, 206, 254),
-            noiseMaterialColor = Color3.fromRGB(229, 253, 248),
-            objectMaterialColor = Color3.fromRGB(101, 198, 33),
-        },
-        spikes = {
-            chance = 8000,
-            lengthMin = 32,
-            lengthMax = 256,
-            minGap = 48,
-            width = 12,
-        },
-        prefabs = PREFABS_CONFIG,
-        objects = {
-            primaryMaterial = {
-                ceiling = {
-                    Biolumen = 100
-                },
-                wall = {
-                    Crystal1 = 10,
-                    Crystal2 = 10,
-                    Biolumen = 80
-                },
-                floor = {
-                    Rock1Primary = 10,
-                    Rock2Primary = 10,
-                    Rock3Primary = 10,
-                    Rock4Primary = 10,
-                    Rock5Primary = 10,
-                    Crystal1 = 25,
-                    Crystal2 = 25
-                }
-            },
-            alternativeMaterial = {
-                ceiling = {
-                    Biolumen = 100
-                },
-                wall = {
-                    Crystal1 = 10,
-                    Crystal2 = 10,
-                    Biolumen = 80
-                },
-                floor = {
-                    Rock1Secondary = 10,
-                    Rock2Secondary = 10,
-                    Rock3Secondary = 10,
-                    Rock4Secondary = 10,
-                    Rock5Secondary = 10,
-                    Crystal1 = 25,
-                    Crystal2 = 25
-                }
-            },
-            objectMaterial = {
-                ceiling = {
-                    Vine = 100
-                },
-                wall = {
-                    Rock1Plant = 1,
-                    Rock2Plant = 1,
-                    Rock3Plant = 1,
-                    Rock4Plant = 1,
-                    Rock5Plant = 1,
-                    Weird2 = 45,
-                    Weird3 = 50
-                },
-                floor = {
-                    Mushroom1 = 40,
-                    Flowers1 = 50,
-                    Bush1 = 5,
-                    Bush2 = 5
-                }
-            }
-        }
-    },
-    size = 128,
-    seed = 222,
-}, ASSET_CONTAINER)
-
-print(debugStats)
+        ["size"] = size,
+        ["seed"] = seed
+    }, ASSET_CONTAINER)
+end)
