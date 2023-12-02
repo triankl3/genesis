@@ -107,7 +107,7 @@ local debugStats = Genesis:CreateMap({
             }
         }
     },
-    size = 512,
+    size = 128,
     seed = 222,
 }, ASSET_CONTAINER)
 

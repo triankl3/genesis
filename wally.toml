@@ -5,3 +5,4 @@ registry = "https://github.com/UpliftGames/wally-index"
 realm = "shared"
 
 [dependencies]
+iris = "michael-48/iris@2.1.4"

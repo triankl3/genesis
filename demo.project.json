@@ -4,12 +4,12 @@
     "$className": "DataModel",
 
     "ReplicatedStorage": {
-      "Shared": {
-        "$path": "demo/shared"
-      },
       "Assets": {
         "$path": "demo/assets"
-      }
+      },
+      "Dependencies": {
+				"$path": "Packages"	
+			}
     },
 
     "ServerScriptService": {
@@ -50,6 +50,11 @@
     "SoundService": {
       "$properties": {
         "RespectFilteringEnabled": true
+      }
+    },
+    "Players": {
+      "$properties": {
+        "CharacterAutoLoads": false
       }
     }
   }

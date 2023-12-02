@@ -3,6 +3,11 @@
 registry = "test"
 
 [[package]]
+name = "michael-48/iris"
+version = "2.1.4"
+dependencies = []
+
+[[package]]
 name = "triankl3/genesis"
 version = "0.1.0"
-dependencies = []
+dependencies = [["iris", "michael-48/iris@2.1.4"]]
