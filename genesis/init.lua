@@ -57,13 +57,11 @@ local FLAT_MATERIALS_FOLDER = script:WaitForChild("materials") -- Load them from
     .generatorConfig Perlin3DConfig
     .size number
     .seed number | nil
-    .debugObjectProbes boolean | nil
 ]=]
 export type MapConfig = {
     generatorConfig : Perlin3DConfig,
     size : number,
-    seed : number | nil,
-    debugObjectProbes : boolean | nil,
+    seed : number | nil
 }
 
 --[=[
@@ -213,7 +211,7 @@ export type PrefabConfig = {
     @interface DebugStats
     @within Genesis
 
-    .time { start : number, prepare : number, terrain : number, spikes : number, objectPoints : number, objectPrefabs : number, objectGeneration : number }
+    .time { prepare : number, terrain : number, spikes : number, objectPoints : number, objectPrefabs : number, objectGeneration : number, total : number }
     .total { objectProbes : number, spikeProbes : number, spikes : number, objectPoints : number, objectPrefabs : number, objects : number }
 ]=]
 export type DebugStats = {
