@@ -2,7 +2,8 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local UserInputService = game:GetService("UserInputService")
 local RunService = game:GetService("RunService")
 local Iris = require(ReplicatedStorage:WaitForChild("Dependencies"):WaitForChild("iris"))
-local CreateMap = ReplicatedStorage:WaitForChild("CreateMap")
+local CreateMapEvent = ReplicatedStorage:WaitForChild("CreateMap")
+local DebugStatsEvent = ReplicatedStorage:WaitForChild("DebugStats")
 local StarterGui = game:GetService("StarterGui")
 StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.All, false)
 
@@ -83,6 +84,10 @@ local spikeConfig = {
 	minGap = Iris.State(48),
 	width = Iris.State(12),
 }
+local debugStats = {time = {}, total = {}}
+DebugStatsEvent.OnClientEvent:Connect(function(newStats)
+	debugStats = newStats
+end)
 
 Iris.Init()
 Iris:Connect(function()
@@ -125,26 +130,30 @@ Iris:Connect(function()
 		Iris.End()
 		Iris.CollapsingHeader({"Debug Stats"})
 			Iris.Tree({"Time"})
-				Iris.Text({"Prepare: 0ms"})
-				Iris.Text({"Terrain: 0ms"})
-				Iris.Text({"Spikes: 0ms"})
-				Iris.Text({"Object Points: 0ms"})
-				Iris.Text({"Object Prefabs: 0ms"})
-				Iris.Text({"Object Generation: 0ms"})
-				Iris.Text({"Total: 0ms"})
+				local function formatTimeStat(x)
+					return math.round((x or 0) * 1000) .. "ms"
+				end
+
+				Iris.Text({"Prepare: " .. formatTimeStat(debugStats.time.prepare)})
+				Iris.Text({"Terrain: " .. formatTimeStat(debugStats.time.terrain)})
+				Iris.Text({"Spikes: " .. formatTimeStat(debugStats.time.spikes)})
+				Iris.Text({"Object Points: " .. formatTimeStat(debugStats.time.objectPoints)})
+				Iris.Text({"Object Prefabs: " .. formatTimeStat(debugStats.time.objectPrefabs)})
+				Iris.Text({"Object Generation: " .. formatTimeStat(debugStats.time.objects)})
+				Iris.Text({"Total: " .. formatTimeStat(debugStats.time.total)})
 			Iris.End()
 			Iris.Tree({"Total"})
-				Iris.Text({"Object Probes: 0"})
-				Iris.Text({"Spike Probes: 0"})
-				Iris.Text({"Spikes: 0"})
-				Iris.Text({"Object Points: 0"})
-				Iris.Text({"Object Prefabs: 0"})
-				Iris.Text({"Objects: 0"})
+				Iris.Text({"Object Probes: " .. (debugStats.total.objectProbes or 0)})
+				Iris.Text({"Spike Probes: " .. (debugStats.total.spikeProbes or 0)})
+				Iris.Text({"Spikes: " .. (debugStats.total.spikes or 0)})
+				Iris.Text({"Object Points: " .. (debugStats.total.objectPoints or 0)})
+				Iris.Text({"Object Prefabs: " .. (debugStats.total.objectPrefabs or 0)})
+				Iris.Text({"Objects: " .. (debugStats.total.objects or 0)})
 			Iris.End()
 		Iris.End()
 
 		if Iris.Button({"Create Map"}).clicked() then
-			CreateMap:FireServer(
+			CreateMapEvent:FireServer(
 				size.value,
 				seed.value,
 				convertStateTable(terrainConfig),

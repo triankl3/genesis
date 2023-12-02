@@ -7,9 +7,12 @@ local Genesis = require(ServerScriptService:WaitForChild("Genesis"))
 local ASSET_CONTAINER = ReplicatedStorage:WaitForChild("Assets")
 local STATIC_CONFIG = require(script:WaitForChild("staticConfig"))
 
-local CreateMap = Instance.new("RemoteEvent")
-CreateMap.Name = "CreateMap"
-CreateMap.Parent = ReplicatedStorage
+local CreateMapEvent = Instance.new("RemoteEvent")
+CreateMapEvent.Name = "CreateMap"
+CreateMapEvent.Parent = ReplicatedStorage
+local DebugStatsEvent = Instance.new("RemoteEvent")
+DebugStatsEvent.Name = "DebugStats"
+DebugStatsEvent.Parent = ReplicatedStorage
 
 -- Create lighting effects and settings
 Lighting.Ambient = Color3.fromRGB(32, 32, 32)
@@ -49,8 +52,8 @@ atmosphere.Glare = 0
 atmosphere.Haze = 10
 atmosphere.Parent = Lighting
 
-CreateMap.OnServerEvent:Connect(function(_, size, seed, terrainConfig, spikeConfig)
-    Genesis:CreateMap({
+CreateMapEvent.OnServerEvent:Connect(function(player, size, seed, terrainConfig, spikeConfig)
+    local debugStats = Genesis:CreateMap({
         generatorConfig = {
             generator = "Perlin3D",
             terrain = terrainConfig,
@@ -62,4 +65,5 @@ CreateMap.OnServerEvent:Connect(function(_, size, seed, terrainConfig, spikeConf
         ["size"] = size,
         ["seed"] = seed
     }, ASSET_CONTAINER)
+    DebugStatsEvent:FireClient(player, debugStats)
 end)

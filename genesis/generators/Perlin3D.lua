@@ -152,7 +152,8 @@ function Perlin3D.new(mapConfig, assetContainer, mapContainer)
     local self = setmetatable({}, Perlin3D)
 
     local debugStats = { total = {}, time = {} }
-    debugStats["time"]["start"] = tick()
+    local startTime = tick()
+    local savedStartTime = tick()
 
     -- Store references to the map config and map container
     self._mapConfig = mapConfig
@@ -175,9 +176,10 @@ function Perlin3D.new(mapConfig, assetContainer, mapContainer)
     TERRAIN:SetMaterialColor(materialConfig.noiseMaterial, materialConfig.noiseMaterialColor)
     TERRAIN:SetMaterialColor(materialConfig.objectMaterial, materialConfig.objectMaterialColor)
 
-    debugStats["time"]["prepare"] = tick()
+    debugStats["time"]["prepare"] = tick() - startTime
 
     -- Perform generation
+    startTime = tick()
     local objectProbes, spikeProbes = self:_generateTerrain()
     while true do -- Wait for terrain to be hopefully updated after heavy generation and can finally be raycasted upon
         local rayResult = workspace:Raycast(
@@ -189,7 +191,8 @@ function Perlin3D.new(mapConfig, assetContainer, mapContainer)
         if rayResult.Instance == TERRAIN then break end
         RunService.Heartbeat:Wait()
     end
-    debugStats["time"]["terrain"] = tick()
+    debugStats["time"]["terrain"] = tick() - startTime
+
     if objectProbes then
         debugStats["total"]["objectProbes"] = #objectProbes
     end
@@ -197,21 +200,27 @@ function Perlin3D.new(mapConfig, assetContainer, mapContainer)
         debugStats["total"]["spikeProbes"] = #spikeProbes
     end
 
+    startTime = tick()
     local totalSpikes = self:_generateSpikes(spikeProbes)
-    debugStats["time"]["spikes"] = tick()
+    debugStats["time"]["spikes"] = tick() - startTime
     debugStats["total"]["spikes"] = totalSpikes
 
+    startTime = tick()
     local objectPoints, totalObjectPoints = self:_prepareObjectPoints(objectProbes)
-    debugStats["time"]["objectPoints"] = tick()
+    debugStats["time"]["objectPoints"] = tick() - startTime
     debugStats["total"]["objectPoints"] = totalObjectPoints
 
+    startTime = tick()
     local objectPrefabs, totalObjectPrefabs = self:_prepareObjectPrefabs(assetContainer)
-    debugStats["time"]["objectPrefabs"] = tick()
+    debugStats["time"]["objectPrefabs"] = tick() - startTime
     debugStats["total"]["objectPrefabs"] = totalObjectPrefabs
 
+    startTime = tick()
     local totalObjects = self:_generateObjects(objectPoints, objectPrefabs)
-    debugStats["time"]["objectGeneration"] = tick()
+    debugStats["time"]["objectGeneration"] = tick() - startTime
     debugStats["total"]["objects"] = totalObjects
+
+    debugStats["time"]["total"] = tick() - savedStartTime
 
     return self, debugStats
 end
