@@ -9,5 +9,5 @@ dependencies = []
 
 [[package]]
 name = "triankl3/genesis"
-version = "0.1.0"
+version = "1.0.0"
 dependencies = [["iris", "michael-48/iris@2.1.4"]]
