@@ -1,11 +1,11 @@
 # Getting Started
 
 ### Example
-To get an example of usage you can view the [demo place on Roblox](#).
+To get an example of usage you can view the [demo place on Roblox](https://www.roblox.com/games/15529154687/Genesis-Demo).
 
 ### 1. Get the library
 - [Wally Package](#)
-- [Roblox Model](#)
+- [Roblox Model](https://www.roblox.com/library/15536843454/Genesis-Library)
 - Or build from source using Rojo
 
 ### 2. Prepare assets
