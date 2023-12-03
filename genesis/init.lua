@@ -157,18 +157,18 @@ export type Perlin3DConfig = {
     @interface PrefabConfig
     @within Genesis
 
-    .clone string | nil
-    .asset string
-    .rbxProperties { [string] : { [string] : any } | nil } | nil
-    .proximity { extraRadius : number | nil, banned : { bannedRadius : number, bannedList : { string } } | nil } | nil
-    .scale NumberRange
-    .randomRotation boolean | nil
-    .bury boolean | nil
-    .useNormal boolean | nil
-    .sound { [string] : any } | nil
-    .decal { faces : { Enum.NormalId }, [string] : any } | nil
-    .stretch NumberRange | nil
-    .texture { otherChildren : { string } | nil, faces : { Enum.NormalId }, [string] : any } | nil
+    .clone string | nil -- Clone the properties of an existing config and then apply any changes, works on multiple layers
+    .asset string -- The name of the asset to use for this prefab
+    .rbxProperties { [string] : { [string] : any } | nil } | nil -- Name of any child containing any property with any value
+    .proximity { extraRadius : number | nil, banned : { bannedRadius : number, bannedList : { string } } | nil } | nil -- Checks if the prefab is within the banned radius of any other prefab in the banned list
+    .scale NumberRange -- Applies random scaling to prefab between the min and max values
+    .randomRotation boolean | nil -- Applies random Y axies rotation to prefab
+    .bury boolean | nil -- Buries prefab into the ground
+    .useNormal boolean | nil -- Makes prefab align with the normal of the surface it is placed on
+    .sound { [string] : any } | nil -- Applies a sound to the prefab containing any property and any value
+    .decal { faces : { Enum.NormalId }, [string] : any } | nil -- Applies the decal to the specified faces with any property and any value
+    .stretch NumberRange | nil -- Stretches the model on the Y axies between the min and max values
+    .texture { otherChildren : { string } | nil, faces : { Enum.NormalId }, [string] : any } | nil -- Applies a texture to the prefab on the PrimaryPart and specified otherChildren, on the specified faces with any property and any value
 ]=]
 export type PrefabConfig = {
     clone : string | nil,
@@ -254,7 +254,7 @@ local Genesis = {
 }
 
 --[=[
-    @function CreateMap
+    @method CreateMap
     @within Genesis
     @yields
 
@@ -299,7 +299,7 @@ function Genesis:CreateMap(mapConfig : MapConfig, assetContainer : Folder)
 end
 
 --[=[
-    @function DestroyMap
+    @method DestroyMap
     @within Genesis
     @yields
 
