@@ -8,7 +8,7 @@
         "$path": "demo/assets"
       },
       "Dependencies": {
-				"$path": "Packages"	
+				"$path": "DevPackages"	
 			}
     },
 
