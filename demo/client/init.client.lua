@@ -15,6 +15,10 @@ CAMERA.FieldOfView = 90
 local cameraSpeed = Iris.State(5)
 local cameraSensitivity = Iris.State(0.3)
 
+--[[
+	Some code taken from https://devforum.roblox.com/t/how-to-make-an-easy-freecam-script-mobile-support/1972016.
+	Thanks to Joe(Joephiss)!
+]]
 RunService.RenderStepped:Connect(function()
     if UserInputService:IsMouseButtonPressed(Enum.UserInputType.MouseButton2) then
         local delta = UserInputService:GetMouseDelta()
@@ -155,7 +159,7 @@ Iris:Connect(function()
 		if Iris.Button({"Create Map"}).clicked() then
 			CreateMapEvent:FireServer(
 				size.value,
-				seed.value,
+				seedEnabled.value and seed.value or nil,
 				convertStateTable(terrainConfig),
 				spikesEnabled.value and convertStateTable(spikeConfig) or nil
 			)
