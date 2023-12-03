@@ -1,6 +1,5 @@
 [package]
-name = "triankl3/genesis"
-description = "Procedural generation of 3D Perlin noise maps in Roblox, originally created for a game and turned into an open-source library. Supports creation of terrain and placement of objects using a unique algorithm to handle the challenges of the build in terrain system."
+name = "triankl3/genesis-demo"
 license = "MIT"
 authors = ["triankl3"]
 version = "1.0.0"

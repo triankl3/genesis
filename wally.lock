@@ -8,6 +8,6 @@ version = "2.1.4"
 dependencies = []
 
 [[package]]
-name = "triankl3/genesis"
+name = "triankl3/genesis-demo"
 version = "1.0.0"
 dependencies = [["iris", "michael-48/iris@2.1.4"]]
