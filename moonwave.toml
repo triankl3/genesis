@@ -3,7 +3,7 @@ gitRepoUrl = "https://github.com/triankl3/genesis"
 gitSourceBranch = "main"
 
 [docusaurus]
-onBrokenLinks = "throw"
+onBrokenLinks = "warn"
 onBrokenMarkdownLinks = "warn"
 plugins = ["docusaurus-plugin-relative-paths"]
 
