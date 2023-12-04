@@ -1,5 +1,6 @@
 title = "Genesis"
-gitRepoUrl = "https://github.com/triankl3/genesis" # From Git
+gitRepoUrl = "https://github.com/triankl3/genesis"
+gitSourceBranch = "main"
 
 [docusaurus]
 onBrokenLinks = "throw"
