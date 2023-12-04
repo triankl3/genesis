@@ -11,5 +11,5 @@ Genesis is available as a package on [Wally](https://wally.run/package/triankl3/
 Also available as a [Roblox Model](https://www.roblox.com/library/15536843454/Genesis-Library).
 
 # Documentation
-Documentation is built using Moonwave and available at #.
-[Here is how to get started.](#)
+Documentation is built using Moonwave and [available here](https://triankl3.com/genesis/).
+[Here is how to get started.](https://triankl3.com/genesis/docs/intro)
