@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="en" dir="ltr" class="plugin-moonwave plugin-id-moonwave">
+<head>
+<meta charset="UTF-8">
+<meta name="generator" content="Docusaurus v2.3.1">
+<title data-rh="true">Genesis | Genesis</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:url" content="https://triankl3.github.io/genesis/api/Genesis"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docusaurus_tag" content="default"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docsearch:docusaurus_tag" content="default"><meta data-rh="true" property="og:title" content="Genesis | Genesis"><link data-rh="true" rel="canonical" href="https://triankl3.github.io/genesis/api/Genesis"><link data-rh="true" rel="alternate" href="https://triankl3.github.io/genesis/api/Genesis" hreflang="en"><link data-rh="true" rel="alternate" href="https://triankl3.github.io/genesis/api/Genesis" hreflang="x-default"><link rel="stylesheet" href="/genesis/assets/css/styles.6b33bbd6.css">
+<link rel="preload" href="/genesis/assets/js/runtime~main.88375e42.js" as="script">
+<link rel="preload" href="/genesis/assets/js/main.76a22439.js" as="script">
+</head>
+<body class="navigation-with-keyboard">
+<script>!function(){function e(e){document.documentElement.setAttribute("data-theme",e)}var t=function(){var e=null;try{e=localStorage.getItem("theme")}catch(e){}return e}();null!==t?e(t):window.matchMedia("(prefers-color-scheme: dark)").matches?e("dark"):(window.matchMedia("(prefers-color-scheme: light)").matches,e("light"))}()</script><div id="__docusaurus">
+<div role="region" aria-label="Skip to main content"><a class="skipToContent_fXgn" href="#docusaurus_skipToContent_fallback">Skip to main content</a></div><nav aria-label="Main" class="navbar navbar--fixed-top"><div class="navbar__inner"><div class="navbar__items"><button aria-label="Toggle navigation bar" aria-expanded="false" class="navbar__toggle clean-btn" type="button"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/genesis/"><b class="navbar__title text--truncate">Genesis</b></a><a class="navbar__item navbar__link" href="/genesis/docs/intro">Docs</a><a aria-current="page" class="navbar__item navbar__link navbar__link--active" href="/genesis/api/">API</a></div><div class="navbar__items navbar__items--right"><a href="https://github.com/triankl3/genesis" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link">GitHub<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a><div class="toggle_vylO colorModeToggle_DEke"><button class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS" type="button" disabled="" title="Switch between dark and light mode (currently light mode)" aria-label="Switch between dark and light mode (currently light mode)" aria-live="polite"><svg viewBox="0 0 24 24" width="24" height="24" class="lightToggleIcon_pyhR"><path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" class="darkToggleIcon_wfgR"><path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path></svg></button></div><div class="searchBox_ZlJk"><div class="navbar__search"><span aria-label="expand searchbar" role="button" class="search-icon" tabindex="0"></span><input type="search" id="search_input_react" placeholder="Loading..." aria-label="Search" class="navbar__search-input search-bar" disabled=""></div></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div id="docusaurus_skipToContent_fallback" class="main-wrapper mainWrapper_z2l0 docPageContainer_wNNk"><div class="docPage_Dpn1"><div class="docSidebarContainer_o_re"><div class="sidebar_njMd"><nav aria-label="Docs sidebar" class="menu thin-scrollbar menu_SIkG"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link menu__link--active" aria-current="page" href="/genesis/api/Genesis">​Genesis</a></li></ul></nav></div></div><main class="docMainContainer_HJE1"><div class="container padding-vert--lg"><div class="row"><div class="col docItemCol_MU3C"><div class="docItemContainer_Wv98"><article><div class="member_J0w1 markdown"><div class="tocCollapsible_ETCw theme-doc-toc-mobile tocMobile_oUs_"><button type="button" class="clean-btn tocCollapsibleButton_TO0P">On this page</button></div><header><h1 class="docTitle_mZRt" style="text-decoration:none"><span style="display:inline-block">Genesis</span></h1><div class="luaClassTags_EipM"><span class="badge_Ba2I" style="color:#00CC67"><span class="badgeTooltip_cWXP">This item only works when running on the server.</span><span class="badgeToolTipTail_H9D_"><svg fill="#00CC67" xmlns="http://www.w3.org/2000/svg" version="1.1" x="0px" y="0px" viewBox="0 0 90 90" role="img" aria-label="This item only works when running on the server."><polygon points="6.125,72.421 58.544,88.523 58.544,24.372 6.125,8.269 "></polygon><polygon points="79.818,15.77 79.868,15.755 29.615,1.453 10.328,6.318 60.102,21.609 "></polygon><path d="M61.643,78.738l22.232-6.582V17.801l-22.232,6.584V78.738z M73.811,69.257c-1.174,0-2.125-1.19-2.125-2.659  c0-1.468,0.951-2.658,2.125-2.658c1.172,0,2.123,1.19,2.123,2.658C75.934,68.066,74.982,69.257,73.811,69.257z M64.898,32.121  l16.336-4.41v7.117l-16.336,4.409V32.121z M64.898,41.292l16.336-4.41v7.116l-16.336,4.409V41.292z M64.898,50.463l16.336-4.411  v7.116l-16.336,4.411V50.463z"></path><polygon points="83.875,74.893 61.643,81.477 61.643,88.547 83.875,81.963 "></polygon></svg> <!-- -->Server</span></span></div><div></div></header><h2 class="anchor anchorWithStickyNavbar_LWe7" id="types">Types<a href="#types" class="hash-link" aria-label="Direct link to Types" title="Direct link to Types">​</a></h2><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="Perlin3DConfig"><code style="text-decoration:none">Perlin3DConfig</code><a href="#Perlin3DConfig" class="hash-link" aria-label="Direct link to Perlin3DConfig" title="Direct link to Perlin3DConfig">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/triankl3/genesis/blob/main/genesis/init.lua#L78"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code class="purple_ieR2">interface</code> <code>Perlin3DConfig<!-- --> <!-- -->{</code><div class="inset_uKQm"><div><code>generator<!-- -->: </code><code class="blue_P4bS">&quot;Perlin3D&quot;</code></div><div><code>terrain<!-- -->: </code><code class="purple_ieR2">{</code><div class="inset_uKQm"><code class="blue_P4bS">minDensity</code><code>: </code><code class="blue_P4bS">number</code><code class="purple_ieR2">,</code></div><div class="inset_uKQm"><code class="blue_P4bS">frequency</code><code>: </code><code class="blue_P4bS">number</code><code class="purple_ieR2">,</code></div><div class="inset_uKQm"><code class="blue_P4bS">verticalScale</code><code>: </code><code class="blue_P4bS">number</code><code class="purple_ieR2">,</code></div><div class="inset_uKQm"><code class="blue_P4bS">outlineMinDensity</code><code>: </code><code class="blue_P4bS">number</code><code class="purple_ieR2">,</code></div><div class="inset_uKQm"><code class="blue_P4bS">outlineFrequency</code><code>: </code><code class="blue_P4bS">number</code><code class="purple_ieR2">,</code></div><div class="inset_uKQm"><code class="blue_P4bS">falloffStart</code><code>: </code><code class="blue_P4bS">number</code><code class="purple_ieR2">,</code></div><div class="inset_uKQm"><code class="blue_P4bS">alternativeMaterialChance</code><code>: </code><code class="blue_P4bS">number</code><code class="purple_ieR2">,</code></div><div class="inset_uKQm"><code class="blue_P4bS">noiseMaterialMinDensity</code><code>: </code><code class="blue_P4bS">number</code><code class="purple_ieR2">,</code></div><div class="inset_uKQm"><code class="blue_P4bS">noiseMaterialFrequency</code><code>: </code><code class="blue_P4bS">number</code><code class="purple_ieR2">,</code></div><div class="inset_uKQm"><code class="blue_P4bS">objectMaterialMinDensity</code><code>: </code><code class="blue_P4bS">number</code><code class="purple_ieR2">,</code></div><div class="inset_uKQm"><code class="blue_P4bS">objectMaterialFrequency</code><code>: </code><code class="blue_P4bS">number</code><code class="purple_ieR2">,</code></div><div class="inset_uKQm"><code class="blue_P4bS">objectProbeChance</code><code>: </code><code class="blue_P4bS">number</code></div><code class="purple_ieR2">}</code></div><div><code>material<!-- -->: </code><code class="purple_ieR2">{</code><div class="inset_uKQm"><code class="blue_P4bS">primaryMaterial</code><code>: </code><code class="blue_P4bS">Enum.Material</code><code class="purple_ieR2">,</code></div><div class="inset_uKQm"><code class="blue_P4bS">alternativeMaterial</code><code>: </code><code class="blue_P4bS">Enum.Material</code><code class="purple_ieR2">,</code></div><div class="inset_uKQm"><code class="blue_P4bS">noiseMaterial</code><code>: </code><code class="blue_P4bS">Enum.Material</code><code class="purple_ieR2">,</code></div><div class="inset_uKQm"><code class="blue_P4bS">objectMaterial</code><code>: </code><code class="blue_P4bS">Enum.Material</code><code class="purple_ieR2">,</code></div><div class="inset_uKQm"><code class="blue_P4bS">primaryMaterialColor</code><code>: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="https://developer.roblox.com/en-us/api-reference/datatype/Color3" target="_blank" rel="noopener noreferrer">Color3<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound" style="color:gray;vertical-align:middle;margin-left:2px"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></code><code class="purple_ieR2">,</code></div><div class="inset_uKQm"><code class="blue_P4bS">alternativeMaterialColor</code><code>: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="https://developer.roblox.com/en-us/api-reference/datatype/Color3" target="_blank" rel="noopener noreferrer">Color3<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound" style="color:gray;vertical-align:middle;margin-left:2px"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></code><code class="purple_ieR2">,</code></div><div class="inset_uKQm"><code class="blue_P4bS">noiseMaterialColor</code><code>: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="https://developer.roblox.com/en-us/api-reference/datatype/Color3" target="_blank" rel="noopener noreferrer">Color3<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound" style="color:gray;vertical-align:middle;margin-left:2px"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></code><code class="purple_ieR2">,</code></div><div class="inset_uKQm"><code class="blue_P4bS">objectMaterialColor</code><code>: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="https://developer.roblox.com/en-us/api-reference/datatype/Color3" target="_blank" rel="noopener noreferrer">Color3<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound" style="color:gray;vertical-align:middle;margin-left:2px"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></code></div><code class="purple_ieR2">}</code></div><div><code>spikes<!-- -->: </code><code class="purple_ieR2">{</code><div class="inset_uKQm"><code class="blue_P4bS">chance</code><code>: </code><code class="blue_P4bS">number</code><code class="purple_ieR2">,</code></div><div class="inset_uKQm"><code class="blue_P4bS">lengthMin</code><code>: </code><code class="blue_P4bS">number</code><code class="purple_ieR2">,</code></div><div class="inset_uKQm"><code class="blue_P4bS">lengthMax</code><code>: </code><code class="blue_P4bS">number</code><code class="purple_ieR2">,</code></div><div class="inset_uKQm"><code class="blue_P4bS">minGap</code><code>: </code><code class="blue_P4bS">number</code><code class="purple_ieR2">,</code></div><div class="inset_uKQm"><code class="blue_P4bS">width</code><code>: </code><code class="blue_P4bS">number</code></div><code class="purple_ieR2">}</code><code class="op_lSLc"> | </code><code class="blue_P4bS">nil</code></div><div><code>prefabs<!-- -->: </code><code class="purple_ieR2">{</code><span><code>[</code><code class="blue_P4bS">string</code><code>]</code></span><code>: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/genesis/api/Genesis#PrefabConfig">PrefabConfig</a></code><code class="op_lSLc"> | </code><code class="blue_P4bS">nil</code><code class="purple_ieR2">}</code><code class="op_lSLc"> | </code><code class="blue_P4bS">nil</code></div><div><code>objects<!-- -->: </code><code class="purple_ieR2">{</code><div class="inset_uKQm"><code class="blue_P4bS">primaryMaterial</code><code>: </code><code class="green_DgR4">{</code><div class="inset_uKQm"><code class="blue_P4bS">ceiling</code><code>: </code><code class="yellow_QJap">{</code><span><code>[</code><code class="blue_P4bS">string</code><code>]</code></span><code>: </code><code class="blue_P4bS">number</code><code class="yellow_QJap">}</code><code class="green_DgR4">,</code></div><div class="inset_uKQm"><code class="blue_P4bS">side</code><code>: </code><code class="yellow_QJap">{</code><span><code>[</code><code class="blue_P4bS">string</code><code>]</code></span><code>: </code><code class="blue_P4bS">number</code><code class="yellow_QJap">}</code><code class="green_DgR4">,</code></div><div class="inset_uKQm"><code class="blue_P4bS">floor</code><code>: </code><code class="yellow_QJap">{</code><span><code>[</code><code class="blue_P4bS">string</code><code>]</code></span><code>: </code><code class="blue_P4bS">number</code><code class="yellow_QJap">}</code></div><code class="green_DgR4">}</code><code class="purple_ieR2">,</code></div><div class="inset_uKQm"><code class="blue_P4bS">alternativeMaterial</code><code>: </code><code class="green_DgR4">{</code><div class="inset_uKQm"><code class="blue_P4bS">ceiling</code><code>: </code><code class="yellow_QJap">{</code><span><code>[</code><code class="blue_P4bS">string</code><code>]</code></span><code>: </code><code class="blue_P4bS">number</code><code class="yellow_QJap">}</code><code class="green_DgR4">,</code></div><div class="inset_uKQm"><code class="blue_P4bS">side</code><code>: </code><code class="yellow_QJap">{</code><span><code>[</code><code class="blue_P4bS">string</code><code>]</code></span><code>: </code><code class="blue_P4bS">number</code><code class="yellow_QJap">}</code><code class="green_DgR4">,</code></div><div class="inset_uKQm"><code class="blue_P4bS">floor</code><code>: </code><code class="yellow_QJap">{</code><span><code>[</code><code class="blue_P4bS">string</code><code>]</code></span><code>: </code><code class="blue_P4bS">number</code><code class="yellow_QJap">}</code></div><code class="green_DgR4">}</code><code class="purple_ieR2">,</code></div><div class="inset_uKQm"><code class="blue_P4bS">objectMaterial</code><code>: </code><code class="green_DgR4">{</code><div class="inset_uKQm"><code class="blue_P4bS">ceiling</code><code>: </code><code class="yellow_QJap">{</code><span><code>[</code><code class="blue_P4bS">string</code><code>]</code></span><code>: </code><code class="blue_P4bS">number</code><code class="yellow_QJap">}</code><code class="green_DgR4">,</code></div><div class="inset_uKQm"><code class="blue_P4bS">side</code><code>: </code><code class="yellow_QJap">{</code><span><code>[</code><code class="blue_P4bS">string</code><code>]</code></span><code>: </code><code class="blue_P4bS">number</code><code class="yellow_QJap">}</code><code class="green_DgR4">,</code></div><div class="inset_uKQm"><code class="blue_P4bS">floor</code><code>: </code><code class="yellow_QJap">{</code><span><code>[</code><code class="blue_P4bS">string</code><code>]</code></span><code>: </code><code class="blue_P4bS">number</code><code class="yellow_QJap">}</code></div><code class="green_DgR4">}</code></div><code class="purple_ieR2">}</code><code class="op_lSLc"> | </code><code class="blue_P4bS">nil</code></div></div><code>}</code></div><div></div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="PrefabConfig"><code style="text-decoration:none">PrefabConfig</code><a href="#PrefabConfig" class="hash-link" aria-label="Direct link to PrefabConfig" title="Direct link to PrefabConfig">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/triankl3/genesis/blob/main/genesis/init.lua#L173"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code class="purple_ieR2">interface</code> <code>PrefabConfig<!-- --> <!-- -->{</code><div class="inset_uKQm"><div><code>clone<!-- -->: </code><code class="blue_P4bS">string</code><code class="op_lSLc"> | </code><code class="blue_P4bS">nil</code><span class="inlineDescription_G7Er">-- <span>
+<p>Clone the properties of an existing config and then apply any changes, works on multiple layers</p>
+</span></span></div><div><code>asset<!-- -->: </code><code class="blue_P4bS">string</code><span class="inlineDescription_G7Er">-- <span>
+<p>The name of the asset to use for this prefab</p>
+</span></span></div><div><code>rbxProperties<!-- -->: </code><code class="purple_ieR2">{</code><span><code>[</code><code class="blue_P4bS">string</code><code>]</code></span><code>: </code><code class="green_DgR4">{</code><span><code>[</code><code class="blue_P4bS">string</code><code>]</code></span><code>: </code><code class="blue_P4bS">any</code><code class="green_DgR4">}</code><code class="op_lSLc"> | </code><code class="blue_P4bS">nil</code><code class="purple_ieR2">}</code><code class="op_lSLc"> | </code><code class="blue_P4bS">nil</code><span class="inlineDescription_G7Er">-- <span>
+<p>Name of any child containing any property with any value</p>
+</span></span></div><div><code>proximity<!-- -->: </code><code class="purple_ieR2">{</code><div class="inset_uKQm"><code class="blue_P4bS">extraRadius</code><code>: </code><code class="blue_P4bS">number</code><code class="op_lSLc"> | </code><code class="blue_P4bS">nil</code><code class="purple_ieR2">,</code></div><div class="inset_uKQm"><code class="blue_P4bS">banned</code><code>: </code><code class="green_DgR4">{</code><div class="inset_uKQm"><code class="blue_P4bS">bannedRadius</code><code>: </code><code class="blue_P4bS">number</code><code class="green_DgR4">,</code></div><div class="inset_uKQm"><code class="blue_P4bS">bannedList</code><code>: </code><code class="yellow_QJap">{</code><code class="blue_P4bS">string</code><code class="yellow_QJap">}</code></div><code class="green_DgR4">}</code><code class="op_lSLc"> | </code><code class="blue_P4bS">nil</code></div><code class="purple_ieR2">}</code><code class="op_lSLc"> | </code><code class="blue_P4bS">nil</code><span class="inlineDescription_G7Er">-- <span>
+<p>Checks if the prefab is within the banned radius of any other prefab in the banned list</p>
+</span></span></div><div><code>scale<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="https://developer.roblox.com/en-us/api-reference/datatype/NumberRange" target="_blank" rel="noopener noreferrer">NumberRange<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound" style="color:gray;vertical-align:middle;margin-left:2px"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></code><span class="inlineDescription_G7Er">-- <span>
+<p>Applies random scaling to prefab between the min and max values</p>
+</span></span></div><div><code>randomRotation<!-- -->: </code><code class="blue_P4bS">boolean</code><code class="op_lSLc"> | </code><code class="blue_P4bS">nil</code><span class="inlineDescription_G7Er">-- <span>
+<p>Applies random Y axies rotation to prefab</p>
+</span></span></div><div><code>bury<!-- -->: </code><code class="blue_P4bS">boolean</code><code class="op_lSLc"> | </code><code class="blue_P4bS">nil</code><span class="inlineDescription_G7Er">-- <span>
+<p>Buries prefab into the ground</p>
+</span></span></div><div><code>useNormal<!-- -->: </code><code class="blue_P4bS">boolean</code><code class="op_lSLc"> | </code><code class="blue_P4bS">nil</code><span class="inlineDescription_G7Er">-- <span>
+<p>Makes prefab align with the normal of the surface it is placed on</p>
+</span></span></div><div><code>sound<!-- -->: </code><code class="purple_ieR2">{</code><span><code>[</code><code class="blue_P4bS">string</code><code>]</code></span><code>: </code><code class="blue_P4bS">any</code><code class="purple_ieR2">}</code><code class="op_lSLc"> | </code><code class="blue_P4bS">nil</code><span class="inlineDescription_G7Er">-- <span>
+<p>Applies a sound to the prefab containing any property and any value</p>
+</span></span></div><div><code>decal<!-- -->: </code><code class="purple_ieR2">{</code><div class="inset_uKQm"><code class="blue_P4bS">faces</code><code>: </code><code class="green_DgR4">{</code><code class="blue_P4bS">Enum.NormalId</code><code class="green_DgR4">}</code><code class="purple_ieR2">,</code></div><div class="inset_uKQm"><span><code>[</code><code class="blue_P4bS">string</code><code>]</code></span><code>: </code><code class="blue_P4bS">any</code></div><code class="purple_ieR2">}</code><code class="op_lSLc"> | </code><code class="blue_P4bS">nil</code><span class="inlineDescription_G7Er">-- <span>
+<p>Applies the decal to the specified faces with any property and any value</p>
+</span></span></div><div><code>stretch<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="https://developer.roblox.com/en-us/api-reference/datatype/NumberRange" target="_blank" rel="noopener noreferrer">NumberRange<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound" style="color:gray;vertical-align:middle;margin-left:2px"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></code><code class="op_lSLc"> | </code><code class="blue_P4bS">nil</code><span class="inlineDescription_G7Er">-- <span>
+<p>Stretches the model on the Y axies between the min and max values</p>
+</span></span></div><div><code>texture<!-- -->: </code><code class="purple_ieR2">{</code><div class="inset_uKQm"><code class="blue_P4bS">otherChildren</code><code>: </code><code class="green_DgR4">{</code><code class="blue_P4bS">string</code><code class="green_DgR4">}</code><code class="op_lSLc"> | </code><code class="blue_P4bS">nil</code><code class="purple_ieR2">,</code></div><div class="inset_uKQm"><code class="blue_P4bS">faces</code><code>: </code><code class="green_DgR4">{</code><code class="blue_P4bS">Enum.NormalId</code><code class="green_DgR4">}</code><code class="purple_ieR2">,</code></div><div class="inset_uKQm"><span><code>[</code><code class="blue_P4bS">string</code><code>]</code></span><code>: </code><code class="blue_P4bS">any</code></div><code class="purple_ieR2">}</code><code class="op_lSLc"> | </code><code class="blue_P4bS">nil</code><span class="inlineDescription_G7Er">-- <span>
+<p>Applies a texture to the prefab on the PrimaryPart and specified otherChildren, on the specified faces with any property and any value</p>
+</span></span></div></div><code>}</code></div><div></div><h2 class="anchor anchorWithStickyNavbar_LWe7" id="properties">Properties<a href="#properties" class="hash-link" aria-label="Direct link to Properties" title="Direct link to Properties">​</a></h2><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="UseFlatMaterials"><code style="text-decoration:none">UseFlatMaterials</code><a href="#UseFlatMaterials" class="hash-link" aria-label="Direct link to UseFlatMaterials" title="Direct link to UseFlatMaterials">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/triankl3/genesis/blob/main/genesis/init.lua#L247"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Genesis<!-- -->.<!-- -->UseFlatMaterials<!-- -->:<!-- --> </code> <code class="blue_P4bS">boolean</code></div><div>
+<p><strong>True</strong> by default, if set to <strong>false</strong> you can apply your own material variants to the terrain.</p>
+</div><h2 class="anchor anchorWithStickyNavbar_LWe7" id="functions">Functions<a href="#functions" class="hash-link" aria-label="Direct link to Functions" title="Direct link to Functions">​</a></h2><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="CreateMap"><code style="text-decoration:none">CreateMap</code><a href="#CreateMap" class="hash-link" aria-label="Direct link to CreateMap" title="Direct link to CreateMap">​</a></h3><span class="badge_Ba2I" style="color:#f1c40f"><span class="badgeTooltip_cWXP">This is a yielding function. When called, it will pause the Lua thread that called the function until a result is ready to be returned, without interrupting other scripts.</span><span class="badgeToolTipTail_H9D_"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="#f1c40f" role="img" aria-label="This is a yielding function. When called, it will pause the Lua thread that called the function until a result is ready to be returned, without interrupting other scripts."><path d="M96.4 11.9c-1.4-2.5-4-4-6.9-4H10.8c-2.9 0-5.4 1.5-6.9 4-1.4 2.5-1.4 5.5 0 7.9L43.3 88c1.4 2.5 4 4 6.9 4 2.9 0 5.4-1.5 6.9-4l39.3-68.2c1.4-2.4 1.4-5.4 0-7.9zM46.3 54.5c1.1-1.1 2.3-1.6 3.8-1.6s2.8.5 3.8 1.6c1.1 1.1 1.6 2.3 1.6 3.8s-.5 2.8-1.6 3.8c-1.1 1.1-2.3 1.6-3.8 1.6s-2.8-.5-3.8-1.6c-1.1-1.1-1.6-2.3-1.6-3.8.1-1.5.6-2.8 1.6-3.8zm-.5-4.9V21.8h8.8v27.8h-8.8z"></path></svg> <!-- -->Yields</span></span><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/triankl3/genesis/blob/main/genesis/init.lua#L272"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Genesis<!-- -->:</code><code class="green_DgR4">CreateMap</code><code>(</code><div class="inset_uKQm"><div><code>mapConfig<!-- -->: </code><code>: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/genesis/api/Genesis#MapConfig">MapConfig</a></code><code>,</code></div><div><code>assetContainer<!-- -->: </code><code>: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="https://developer.roblox.com/en-us/api-reference/class/Folder" target="_blank" rel="noopener noreferrer">Folder<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound" style="color:gray;vertical-align:middle;margin-left:2px"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></code></div></div><code>) → </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/genesis/api/Genesis#DebugStats">DebugStats</a></code></div><h3>Types</h3><h3 class="anchor anchorWithStickyNavbar_LWe7" id="MapConfig"><a href="#MapConfig" class="hash-link" aria-label="Direct link to MapConfig" title="Direct link to MapConfig">​</a></h3><div class="memberString_GwaU"><code class="purple_ieR2">interface</code> <code>MapConfig<!-- --> <!-- -->{</code><div class="inset_uKQm"><div><code>generatorConfig<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/genesis/api/Genesis#Perlin3DConfig">Perlin3DConfig</a></code></div><div><code>size<!-- -->: </code><code class="blue_P4bS">number</code></div><div><code>seed<!-- -->: </code><code class="blue_P4bS">number</code><code class="op_lSLc"> | </code><code class="blue_P4bS">nil</code></div></div><code>}</code></div><div></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="DebugStats"><a href="#DebugStats" class="hash-link" aria-label="Direct link to DebugStats" title="Direct link to DebugStats">​</a></h3><div class="memberString_GwaU"><code class="purple_ieR2">interface</code> <code>DebugStats<!-- --> <!-- -->{</code><div class="inset_uKQm"><div><code>time<!-- -->: </code><code class="purple_ieR2">{</code><div class="inset_uKQm"><code class="blue_P4bS">prepare</code><code>: </code><code class="blue_P4bS">number</code><code class="purple_ieR2">,</code></div><div class="inset_uKQm"><code class="blue_P4bS">terrain</code><code>: </code><code class="blue_P4bS">number</code><code class="purple_ieR2">,</code></div><div class="inset_uKQm"><code class="blue_P4bS">spikes</code><code>: </code><code class="blue_P4bS">number</code><code class="purple_ieR2">,</code></div><div class="inset_uKQm"><code class="blue_P4bS">objectPoints</code><code>: </code><code class="blue_P4bS">number</code><code class="purple_ieR2">,</code></div><div class="inset_uKQm"><code class="blue_P4bS">objectPrefabs</code><code>: </code><code class="blue_P4bS">number</code><code class="purple_ieR2">,</code></div><div class="inset_uKQm"><code class="blue_P4bS">objectGeneration</code><code>: </code><code class="blue_P4bS">number</code><code class="purple_ieR2">,</code></div><div class="inset_uKQm"><code class="blue_P4bS">total</code><code>: </code><code class="blue_P4bS">number</code></div><code class="purple_ieR2">}</code></div><div><code>total<!-- -->: </code><code class="purple_ieR2">{</code><div class="inset_uKQm"><code class="blue_P4bS">objectProbes</code><code>: </code><code class="blue_P4bS">number</code><code class="purple_ieR2">,</code></div><div class="inset_uKQm"><code class="blue_P4bS">spikeProbes</code><code>: </code><code class="blue_P4bS">number</code><code class="purple_ieR2">,</code></div><div class="inset_uKQm"><code class="blue_P4bS">spikes</code><code>: </code><code class="blue_P4bS">number</code><code class="purple_ieR2">,</code></div><div class="inset_uKQm"><code class="blue_P4bS">objectPoints</code><code>: </code><code class="blue_P4bS">number</code><code class="purple_ieR2">,</code></div><div class="inset_uKQm"><code class="blue_P4bS">objectPrefabs</code><code>: </code><code class="blue_P4bS">number</code><code class="purple_ieR2">,</code></div><div class="inset_uKQm"><code class="blue_P4bS">objects</code><code>: </code><code class="blue_P4bS">number</code></div><code class="purple_ieR2">}</code></div></div><code>}</code></div><div></div><div>
+<div class="admonition admonition-danger alert alert--danger">
+  <div class="admonition-heading">
+    <h5><span class="admonition-icon"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="16" viewBox="0 0 12 16">
+          <path d="M5.05.31c.81 2.17.41 3.38-.52 4.31C3.55 5.67 1.98 6.45.9 7.98c-1.45 2.05-1.7 6.53 3.53 7.7-2.2-1.16-2.67-4.52-.3-6.61-.61 2.03.53 3.33 1.94 2.86 1.39-.47 2.3.53 2.27 1.67-.02.78-.31 1.44-1.13 1.81 3.42-.59 4.78-3.42 4.78-5.56 0-2.84-2.53-3.22-1.25-5.61-1.52.13-2.03 1.13-1.89 2.75.09 1.08-1.02 1.8-1.86 1.33-.67-.41-.66-1.19-.06-1.78C8.18 5.31 8.68 2.45 5.05.32L5.03.3l.02.01z"></path>
+        </svg></span>danger</h5>
+  </div>
+  <div class="admonition-content">
+    <pre><code>Only one map can be can exist at a time, calling this function will destroy the current map if it exists.
+</code></pre>
+  </div>
+</div>
+<p>Creates a new map based on the map config specified, also requires a folder instance that stores the prefabs used for object generation.</p>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="DestroyMap"><code style="text-decoration:none">DestroyMap</code><a href="#DestroyMap" class="hash-link" aria-label="Direct link to DestroyMap" title="Direct link to DestroyMap">​</a></h3><span class="badge_Ba2I" style="color:#f1c40f"><span class="badgeTooltip_cWXP">This is a yielding function. When called, it will pause the Lua thread that called the function until a result is ready to be returned, without interrupting other scripts.</span><span class="badgeToolTipTail_H9D_"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="#f1c40f" role="img" aria-label="This is a yielding function. When called, it will pause the Lua thread that called the function until a result is ready to be returned, without interrupting other scripts."><path d="M96.4 11.9c-1.4-2.5-4-4-6.9-4H10.8c-2.9 0-5.4 1.5-6.9 4-1.4 2.5-1.4 5.5 0 7.9L43.3 88c1.4 2.5 4 4 6.9 4 2.9 0 5.4-1.5 6.9-4l39.3-68.2c1.4-2.4 1.4-5.4 0-7.9zM46.3 54.5c1.1-1.1 2.3-1.6 3.8-1.6s2.8.5 3.8 1.6c1.1 1.1 1.6 2.3 1.6 3.8s-.5 2.8-1.6 3.8c-1.1 1.1-2.3 1.6-3.8 1.6s-2.8-.5-3.8-1.6c-1.1-1.1-1.6-2.3-1.6-3.8.1-1.5.6-2.8 1.6-3.8zm-.5-4.9V21.8h8.8v27.8h-8.8z"></path></svg> <!-- -->Yields</span></span><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/triankl3/genesis/blob/main/genesis/init.lua#L308"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Genesis<!-- -->:</code><code class="green_DgR4">DestroyMap</code><code>(</code><code>) → </code><code>(</code><code>)</code></div><div>
+<p>Destroys the current map.</p>
+</div></div></article></div><details><summary>Show raw api</summary><pre style="max-width:100%;white-space:pre-wrap">{
+    &quot;functions&quot;: [
+        {
+            &quot;name&quot;: &quot;CreateMap&quot;,
+            &quot;desc&quot;: &quot;:::danger\n    Only one map can be can exist at a time, calling this function will destroy the current map if it exists.\n:::\n\nCreates a new map based on the map config specified, also requires a folder instance that stores the prefabs used for object generation.&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;mapConfig&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;: MapConfig&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;assetContainer&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;: Folder&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;DebugStats&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;method&quot;,
+            &quot;yields&quot;: true,
+            &quot;source&quot;: {
+                &quot;line&quot;: 272,
+                &quot;path&quot;: &quot;genesis/init.lua&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;DestroyMap&quot;,
+            &quot;desc&quot;: &quot;Destroys the current map.&quot;,
+            &quot;params&quot;: [],
+            &quot;returns&quot;: [],
+            &quot;function_type&quot;: &quot;method&quot;,
+            &quot;yields&quot;: true,
+            &quot;source&quot;: {
+                &quot;line&quot;: 308,
+                &quot;path&quot;: &quot;genesis/init.lua&quot;
+            }
+        }
+    ],
+    &quot;properties&quot;: [
+        {
+            &quot;name&quot;: &quot;UseFlatMaterials&quot;,
+            &quot;desc&quot;: &quot;**True** by default, if set to **false** you can apply your own material variants to the terrain.&quot;,
+            &quot;lua_type&quot;: &quot;boolean&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 247,
+                &quot;path&quot;: &quot;genesis/init.lua&quot;
+            }
+        }
+    ],
+    &quot;types&quot;: [
+        {
+            &quot;name&quot;: &quot;MapConfig&quot;,
+            &quot;desc&quot;: &quot;&quot;,
+            &quot;fields&quot;: [
+                {
+                    &quot;name&quot;: &quot;generatorConfig&quot;,
+                    &quot;lua_type&quot;: &quot;Perlin3DConfig&quot;,
+                    &quot;desc&quot;: &quot;&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;size&quot;,
+                    &quot;lua_type&quot;: &quot;number&quot;,
+                    &quot;desc&quot;: &quot;&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;seed&quot;,
+                    &quot;lua_type&quot;: &quot;number | nil&quot;,
+                    &quot;desc&quot;: &quot;&quot;
+                }
+            ],
+            &quot;source&quot;: {
+                &quot;line&quot;: 61,
+                &quot;path&quot;: &quot;genesis/init.lua&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;Perlin3DConfig&quot;,
+            &quot;desc&quot;: &quot;&quot;,
+            &quot;fields&quot;: [
+                {
+                    &quot;name&quot;: &quot;generator&quot;,
+                    &quot;lua_type&quot;: &quot;\&quot;Perlin3D\&quot;&quot;,
+                    &quot;desc&quot;: &quot;&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;terrain&quot;,
+                    &quot;lua_type&quot;: &quot;{ minDensity : number, frequency : number, verticalScale : number, outlineMinDensity : number, outlineFrequency : number, falloffStart : number, alternativeMaterialChance : number, noiseMaterialMinDensity : number, noiseMaterialFrequency : number, objectMaterialMinDensity : number, objectMaterialFrequency : number, objectProbeChance : number }&quot;,
+                    &quot;desc&quot;: &quot;&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;material&quot;,
+                    &quot;lua_type&quot;: &quot;{ primaryMaterial : Enum.Material, alternativeMaterial : Enum.Material, noiseMaterial : Enum.Material, objectMaterial : Enum.Material, primaryMaterialColor : Color3, alternativeMaterialColor : Color3, noiseMaterialColor : Color3, objectMaterialColor : Color3 }&quot;,
+                    &quot;desc&quot;: &quot;&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;spikes&quot;,
+                    &quot;lua_type&quot;: &quot;{ chance : number, lengthMin : number, lengthMax : number, minGap : number, width : number } | nil&quot;,
+                    &quot;desc&quot;: &quot;&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;prefabs&quot;,
+                    &quot;lua_type&quot;: &quot;{ [string] : PrefabConfig | nil } | nil&quot;,
+                    &quot;desc&quot;: &quot;&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;objects&quot;,
+                    &quot;lua_type&quot;: &quot;{ primaryMaterial : { ceiling : { [string] : number }, side : { [string] : number }, floor : { [string] : number } }, alternativeMaterial : { ceiling : { [string] : number }, side : { [string] : number }, floor : { [string] : number } }, objectMaterial : { ceiling : { [string] : number }, side : { [string] : number }, floor : { [string] : number } } } | nil&quot;,
+                    &quot;desc&quot;: &quot;&quot;
+                }
+            ],
+            &quot;source&quot;: {
+                &quot;line&quot;: 78,
+                &quot;path&quot;: &quot;genesis/init.lua&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;PrefabConfig&quot;,
+            &quot;desc&quot;: &quot;&quot;,
+            &quot;fields&quot;: [
+                {
+                    &quot;name&quot;: &quot;clone&quot;,
+                    &quot;lua_type&quot;: &quot;string | nil&quot;,
+                    &quot;desc&quot;: &quot;Clone the properties of an existing config and then apply any changes, works on multiple layers&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;asset&quot;,
+                    &quot;lua_type&quot;: &quot;string&quot;,
+                    &quot;desc&quot;: &quot;The name of the asset to use for this prefab&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;rbxProperties&quot;,
+                    &quot;lua_type&quot;: &quot;{ [string] : { [string] : any } | nil } | nil&quot;,
+                    &quot;desc&quot;: &quot;Name of any child containing any property with any value&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;proximity&quot;,
+                    &quot;lua_type&quot;: &quot;{ extraRadius : number | nil, banned : { bannedRadius : number, bannedList : { string } } | nil } | nil&quot;,
+                    &quot;desc&quot;: &quot;Checks if the prefab is within the banned radius of any other prefab in the banned list&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;scale&quot;,
+                    &quot;lua_type&quot;: &quot;NumberRange&quot;,
+                    &quot;desc&quot;: &quot;Applies random scaling to prefab between the min and max values&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;randomRotation&quot;,
+                    &quot;lua_type&quot;: &quot;boolean | nil&quot;,
+                    &quot;desc&quot;: &quot;Applies random Y axies rotation to prefab&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;bury&quot;,
+                    &quot;lua_type&quot;: &quot;boolean | nil&quot;,
+                    &quot;desc&quot;: &quot;Buries prefab into the ground&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;useNormal&quot;,
+                    &quot;lua_type&quot;: &quot;boolean | nil&quot;,
+                    &quot;desc&quot;: &quot;Makes prefab align with the normal of the surface it is placed on&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;sound&quot;,
+                    &quot;lua_type&quot;: &quot;{ [string] : any } | nil&quot;,
+                    &quot;desc&quot;: &quot;Applies a sound to the prefab containing any property and any value&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;decal&quot;,
+                    &quot;lua_type&quot;: &quot;{ faces : { Enum.NormalId }, [string] : any } | nil&quot;,
+                    &quot;desc&quot;: &quot;Applies the decal to the specified faces with any property and any value&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;stretch&quot;,
+                    &quot;lua_type&quot;: &quot;NumberRange | nil&quot;,
+                    &quot;desc&quot;: &quot;Stretches the model on the Y axies between the min and max values&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;texture&quot;,
+                    &quot;lua_type&quot;: &quot;{ otherChildren : { string } | nil, faces : { Enum.NormalId }, [string] : any } | nil&quot;,
+                    &quot;desc&quot;: &quot;Applies a texture to the prefab on the PrimaryPart and specified otherChildren, on the specified faces with any property and any value&quot;
+                }
+            ],
+            &quot;source&quot;: {
+                &quot;line&quot;: 173,
+                &quot;path&quot;: &quot;genesis/init.lua&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;DebugStats&quot;,
+            &quot;desc&quot;: &quot;&quot;,
+            &quot;fields&quot;: [
+                {
+                    &quot;name&quot;: &quot;time&quot;,
+                    &quot;lua_type&quot;: &quot;{ prepare : number, terrain : number, spikes : number, objectPoints : number, objectPrefabs : number, objectGeneration : number, total : number }&quot;,
+                    &quot;desc&quot;: &quot;&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;total&quot;,
+                    &quot;lua_type&quot;: &quot;{ objectProbes : number, spikeProbes : number, spikes : number, objectPoints : number, objectPrefabs : number, objects : number }&quot;,
+                    &quot;desc&quot;: &quot;&quot;
+                }
+            ],
+            &quot;source&quot;: {
+                &quot;line&quot;: 217,
+                &quot;path&quot;: &quot;genesis/init.lua&quot;
+            }
+        }
+    ],
+    &quot;name&quot;: &quot;Genesis&quot;,
+    &quot;desc&quot;: &quot;&quot;,
+    &quot;realm&quot;: [
+        &quot;Server&quot;
+    ],
+    &quot;source&quot;: {
+        &quot;line&quot;: 241,
+        &quot;path&quot;: &quot;genesis/init.lua&quot;
+    }
+}</pre></details></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#types" class="table-of-contents__link toc-highlight">Types</a><ul><li><a href="#DebugStats" class="table-of-contents__link toc-highlight">DebugStats</a></li><li><a href="#MapConfig" class="table-of-contents__link toc-highlight">MapConfig</a></li><li><a href="#Perlin3DConfig" class="table-of-contents__link toc-highlight">Perlin3DConfig</a></li><li><a href="#PrefabConfig" class="table-of-contents__link toc-highlight">PrefabConfig</a></li></ul></li><li><a href="#properties" class="table-of-contents__link toc-highlight">Properties</a><ul><li><a href="#UseFlatMaterials" class="table-of-contents__link toc-highlight">UseFlatMaterials</a></li></ul></li><li><a href="#functions" class="table-of-contents__link toc-highlight">Functions</a><ul><li><a href="#CreateMap" class="table-of-contents__link toc-highlight">:CreateMap</a></li><li><a href="#DestroyMap" class="table-of-contents__link toc-highlight">:DestroyMap</a></li></ul></li></ul></div></div></div></div></main></div></div><footer class="footer footer--dark"><div class="container container-fluid"><div class="footer__bottom text--center"><div class="footer__copyright">MIT licensed | Copyright © Nikola Pešević(triankl3.com)</div></div></div></footer></div>
+<script src="/genesis/assets/js/runtime~main.88375e42.js"></script>
+<script src="/genesis/assets/js/main.76a22439.js"></script>
+</body>
+</html>

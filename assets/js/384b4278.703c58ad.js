@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkdocs=self.webpackChunkdocs||[]).push([[417],{63891:s=>{s.exports=JSON.parse('{"sourceUrl":"https://github.com/triankl3/genesis/blob/main","baseUrl":"/genesis/","classOrder":[],"apiCategories":[]}')}}]);
