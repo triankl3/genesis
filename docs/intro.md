@@ -4,7 +4,7 @@
 To get an example of usage you can view the [demo place on Roblox](https://www.roblox.com/games/15529154687/Genesis-Demo).
 
 ### 1. Get the library
-- [Wally Package](#)
+- [Wally Package](https://wally.run/package/triankl3/genesis?version=1.0.0)
 - [Roblox Model](https://www.roblox.com/library/15536843454/Genesis-Library)
 - Or build from source using Rojo
 

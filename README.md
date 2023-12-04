@@ -7,7 +7,7 @@ An example place using the library can be played and edited directly on [Roblox]
 Source code available in the `demo` folder which can be built using [Rojo](https://rojo.space), by using `demo.project.json`.
 
 # Install
-Genesis is available as a package on [Wally](https://wally.run).
+Genesis is available as a package on [Wally](https://wally.run/package/triankl3/genesis?version=1.0.0).
 Also available as a [Roblox Model](https://www.roblox.com/library/15536843454/Genesis-Library).
 
 # Documentation
